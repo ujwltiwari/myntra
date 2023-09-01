@@ -2,26 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+    }
+  }
+
+  .swiper {
+    position: relative !important;
+    padding-bottom: 30px !important;
+  }
+
+  .swiper-pagination {
+    position: absolute !important;
+    bottom: 0 !important;
+  }
+
+  /* Define the fade-in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* Apply the fade-in animation to the element */
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out; /* Adjust the duration and easing as needed */
+}
+
+.product-tag {
+  background: rgba(255,63,108,.8);
+  display: inline-block;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  z-index: 1;
+  padding: 0 4px;
+  line-height: 16px;
+}
+
+.product-tag::after {
+  content: '';
+  position: absolute;
+  border-color: rgba(255,63,108,.5) transparent rgba(255,63,108,.5) rgba(255,63,108,.8);
+  border-style: solid;
+  border-width: 8px;
+  left: 100%;
+  width: 0;
+  height: 0;
+  top: 0;
+}
+
+.add-cart:hover {
+  background-color: #FF3E6C !important;
+  opacity: 0.9;
+}
+
+.add-wishlist:hover {
+  background-color: #fff !important;
 }

@@ -1,5 +1,5 @@
 import DefaultBreadcrumb from '@/components/BreadCrumb/BreadCrumb';
-import Navbar from '@/components/Navbar/Navbar';
+import Navbar from '@/components/Layout/Navbar/Navbar';
 import ProductsList from '@/components/Product/ProductsList/ProductsList';
 import React from 'react';
 

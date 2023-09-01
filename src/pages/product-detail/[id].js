@@ -8,7 +8,7 @@ const ProductDetails = () => {
   // console.log('data', data);
   return (
     <Layout>
-      <ProductDetail />;
+      <ProductDetail />
     </Layout>
   );
 };

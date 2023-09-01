@@ -1,5 +1,5 @@
 import Carousel from '@/components/Carousel/Carousel';
-import Navbar from '@/components/Navbar/Navbar';
+import Navbar from '@/components/Layout/Navbar/Navbar';
 import React from 'react';
 
 const Index = () => {

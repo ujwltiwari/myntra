@@ -1,5 +1,6 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
+import Navbar from './Navbar/Navbar';
+import Footer from './Footer/Footer';
 
 const Layout = (props) => {
   return (
@@ -12,7 +13,7 @@ const Layout = (props) => {
         Weekend Offer Ends In 01 Day : 03 H : 36 M : 07 S
       </div>
       {props.children}
-      <h1>Footer Component</h1>
+      <Footer />
     </>
   );
 };

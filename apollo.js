@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'https://crisp-mullet-55.hasura.app/v1/graphql',
+  uri: 'https://capital-satyr-58.hasura.app/v1/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -10,7 +10,7 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       'x-hasura-access-key':
-        'Y136O3t6YLPpRDtOzzqCTm1m8W04Cq7w9ENcporpcaZa96o9lyTFIyDtcsAybfNZ',
+        'dc2bpmvwvEpNGXI7gmAWxjyLY3D2sIYSvW8lvzF7lh344dZWaAwB98Nu99pRpIak',
     },
   };
 });

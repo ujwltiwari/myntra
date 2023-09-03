@@ -200,7 +200,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className='bg-gray-100 p-12 flex items-center flex-col'>
+    <div className='bg-gray-100 p-12 flex items-center flex-col mt-12'>
       <div className='flex gap-12 w-[70%] flex-wrap'>
         {menu.map((x, idx) => {
           return (

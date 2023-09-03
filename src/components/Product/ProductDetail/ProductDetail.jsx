@@ -14,7 +14,6 @@ import RightArrow from '../../../../public/icons/RightArrow';
 import DeliveryVehicle from '../../../../public/icons/DeliveryVehicle';
 import ProductOffers from './ProductOffers';
 import Detail from '../../../../public/icons/Detail';
-import Stars from '../../../../public/icons/Stars';
 import ProductReviews from './ProductReviews';
 
 const ProductDetail = () => {
@@ -22,12 +21,15 @@ const ProductDetail = () => {
   console.log('sizes', sizes);
   const { loading, error, data } = useQuery(GET_POST_QUERY);
   const [product, setProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     if (!loading) {
       setProduct(data.products[0]);
     }
   }, [data, loading]);
+
+  const handleAddtoCart = (product) => {};
 
   return (
     <div className='2xl:px-[150px]'>
@@ -78,6 +80,17 @@ const ProductDetail = () => {
               </p>
             </div>
             <div className='mt-5 flex gap-3'>
+              <Tooltip content='Garment Measurement: 42 inch' style='light'>
+                <button
+                  className={`size-strike flex items-center justify-center rounded-full ring-1 text-[14px] text-gray-300 font-bold relative`}
+                  disabled
+                  style={{ width: '50px', height: '50px' }}
+                  onClick={() => setSelectedSize(idx)}
+                >
+                  XS
+                  <span class='size-buttons-size-strike-show'></span>
+                </button>
+              </Tooltip>
               {sizes.map((size, idx) => (
                 <Tooltip
                   content='Garment Measurement: 42 inch'
@@ -85,8 +98,15 @@ const ProductDetail = () => {
                   key={idx}
                 >
                   <button
-                    className='flex items-center justify-center rounded-full ring-1 ring-gray-300 hover:ring-[#ff3e6c] text-[14px] font-bold cursor-pointer'
+                    className={`flex items-center justify-center rounded-full ring-1 ${
+                      idx === selectedSize
+                        ? 'ring-[#ff3e6c] text-[#ff3e6c]'
+                        : 'ring-gray-300'
+                    } hover:ring-[#ff3e6c] text-[14px] font-bold cursor-pointer ${
+                      idx === selectedSize && 'selected'
+                    }`}
                     style={{ width: '50px', height: '50px' }}
+                    onClick={() => setSelectedSize(idx)}
                   >
                     {size}
                   </button>
@@ -96,10 +116,12 @@ const ProductDetail = () => {
             {/* Select Sizes */}
             {/* Add to Cart & Wishlist */}
             <div className='flex gap-4 mt-6 mb-3'>
-              <Button className='add-cart flex justify-center items-center h-[54px] w-[60%] rounded-[4px] text-[16px] uppercase font-semibold bg-[#FF3E6C] hover:bg-pink-500!important'>
+              <Button
+                className='add-cart flex justify-center items-center h-[54px] w-[60%] rounded-[4px] text-[16px] uppercase font-semibold bg-[#FF3E6C] hover:bg-pink-500!important'
+                onClick={handleAddtoCart}
+              >
                 <Bag />
-                &nbsp;&nbsp;
-                <p>Add to Bag</p>
+                &nbsp;&nbsp; Add to Bag
               </Button>
               <Button className='add-wishlist flex justify-center items-center h-[54px] w-[35%] rounded-[4px] text-[16px] text-gray-950 uppercase font-semibold bg-[#fff] border-[1px] border-gray-300 hover:border-gray-950'>
                 <Heart />

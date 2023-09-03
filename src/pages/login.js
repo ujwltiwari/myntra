@@ -1,22 +1,14 @@
 import Login from '@/components/Auth/Login/Login';
-import Layout from '@/components/Layout/Layout';
-import {
-  deleteUserDetails,
-  fetchUserDetails,
-} from '@/redux/actions/userActions';
-import { Navbar } from 'flowbite-react';
-import { useState, useEffect } from 'react';
+import Navbar from '@/components/Layout/Navbar/Navbar';
+import { fetchUserDetails } from '@/redux/actions/userActions';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 
 function Register({ fetchUserDetails, userDetails }) {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-
-  // useEffect(() => {
-  //   // Dispatch the action to fetch user details when the component mounts
-  //   fetchUserDetails(UID);
-  // }, [fetchUserDetails, UID]);
 
   console.log('userDetails', userDetails);
 
@@ -37,16 +29,16 @@ function Register({ fetchUserDetails, userDetails }) {
       });
 
       if (response.ok) {
-        console.log('response', response);
         const data = await response.json();
         localStorage.setItem('token', data.token);
-        console.error('Registration successful:', data);
+        console.log('Registration successful:', data);
         fetchUserDetails(data.uid);
         // Redirect or show a success message
+        router.push('/profile');
       } else {
         const data = await response.json();
-        console.error('Registration failed:', data.message);
         // Handle registration error, e.g., show an error message
+        console.error('Registration failed:', data.message);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -54,42 +46,15 @@ function Register({ fetchUserDetails, userDetails }) {
     }
   };
 
-  const handleDeleteUser = () => {
-    deleteUserDetails();
-  };
-
   return (
     <>
-      <Layout>
-        <Login />
-      </Layout>
-      {/* <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Full Name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <button type='submit'>Register</button>
-        <button onClick={handleDeleteUser}>Delete User Details</button>
-      </form>
-    </div> */}
+      <Navbar />
+      <Login
+        email={email}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }

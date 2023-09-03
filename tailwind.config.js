@@ -16,6 +16,9 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    colors: {
+      myntraPink: '#FF3F6C',
+    },
   },
   plugins: [require('flowbite/plugin')],
 };

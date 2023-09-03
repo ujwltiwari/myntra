@@ -12,19 +12,22 @@ const client = new ApolloClient({
 });
 
 const REGISTER_USER_MUTATION = gql`
-  mutation RegisterUser($email: String!, $password: String!) {
-    insert_users_one(object: { email: $email, password: $password }) {
+  mutation RegisterUser($email: String!, $password: String!, $name: String!) {
+    insert_users_one(
+      object: { email: $email, password: $password, name: $name }
+    ) {
       id
       email
+      name
     }
   }
 `;
 
-export async function handleRegistration(email, password) {
+export async function handleRegistration(email, password, name) {
   try {
     const result = await client.mutate({
       mutation: REGISTER_USER_MUTATION,
-      variables: { email, password },
+      variables: { email, password, name },
     });
 
     // Handle the response data here

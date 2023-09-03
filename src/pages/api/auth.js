@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       if (action === 'register') {
-        console.log('name', name, email, password);
+        console.log('name', name);
         // Hash the password using argon2
         const hashedPassword = await argon2.hash(password);
 
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
           hashedPassword,
           name
         );
+
         console.log(registrationResult);
 
         if (registrationResult.error) {
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({
           message: 'Registration successful',
-          data: registrationResult.user,
+          data: registrationResult,
         });
       } else if (action === 'login') {
         console.log('password', password);

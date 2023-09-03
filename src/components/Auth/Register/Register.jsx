@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import Mail from '../../../../public/icons/Mail';
 import Password from '../../../../public/icons/Password';
 import Image from 'next/image';
+import Name from '../../../../public/icons/Name';
 import Link from 'next/link';
 
-const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
-  console.log('email', email);
-
+const Register = ({ setEmail, setName, setPassword, handleSubmit }) => {
   return (
     <div className='bg-[#FCEEEB] flex justify-center p-8'>
       {/* Sign Offer Info */}
@@ -20,9 +19,7 @@ const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
         />
         {/* login area */}
         <div className='bg-[#fff] p-8 h-[65%]'>
-          <h1 className='text-[18px] font-semibold'>
-            Login <span className='font-normal'>or</span> Signup
-          </h1>
+          <h1 className='text-[18px] font-semibold'>Signup</h1>
           <form onSubmit={handleSubmit}>
             <div className='relative mt-8'>
               <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
@@ -54,6 +51,21 @@ const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <div className='relative mt-4'>
+              <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
+                <Name />
+                &nbsp;&nbsp;
+                <span className='h-[18px] w-[1px] bg-gray-400'></span>
+              </div>
+              <input
+                type='text'
+                id='name'
+                className='block w-full p-2.5 pl-[55px] text-sm caret-pink-500 text-gray-900 border border-gray-200 rounded-sm bg-gray-50 focus:ring-gray-200 focus:border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-200 dark:focus:border-gray-200'
+                placeholder='Name'
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
             <div className='mt-6 text-[12px]'>
               By continuing, I agree to the{' '}
@@ -76,15 +88,13 @@ const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
             </Button>
           </form>
           <div className='mt-6 text-[12px]'>
-            Have trouble logging in?{' '}
+            Have trouble while sign up?{' '}
             <span className='font-semibold text-myntraPink'>Get help</span>
           </div>
           <div className='mt-6 text-[12px]'>
-            Register?{' '}
-            <Link href='/register'>
-              <span className='font-semibold text-myntraPink'>
-                Create Account
-              </span>
+            Want to Login?{' '}
+            <Link href='/login'>
+              <span className='font-semibold text-myntraPink'>Click Here</span>
             </Link>
           </div>
         </div>
@@ -95,4 +105,4 @@ const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
   );
 };
 
-export default Login;
+export default Register;

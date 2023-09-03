@@ -9,34 +9,34 @@ const Navbar = () => {
   const MenuItems = [
     {
       name: 'Men',
-      link: '#',
+      link: '/shop',
     },
     {
       name: 'Women',
-      link: '#',
+      link: '/shop',
     },
     {
       name: 'Kids',
-      link: '#',
+      link: '/shop',
     },
     {
       name: 'Home & Living',
-      link: '#',
+      link: '/shop',
     },
     {
       name: 'Beauty',
-      link: '#',
+      link: '/shop',
     },
     {
       name: 'Studio',
-      link: '#',
+      link: '/shop',
     },
   ];
 
   const ProfileItems = [
     {
       name: 'Profile',
-      link: '#',
+      link: '/profile',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -56,7 +56,7 @@ const Navbar = () => {
     },
     {
       name: 'Wishlist',
-      link: '#',
+      link: '/shop',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -73,7 +73,7 @@ const Navbar = () => {
     },
     {
       name: 'Bag',
-      link: '#',
+      link: '/shop',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -95,12 +95,12 @@ const Navbar = () => {
   const MobileItems = [
     {
       name: 'Search',
-      link: '#',
+      link: '/shop',
       icon: <IoSearchOutline size={25} />,
     },
     {
       name: 'Profile',
-      link: '#',
+      link: '/shop',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -120,7 +120,7 @@ const Navbar = () => {
     },
     {
       name: 'Wishlist',
-      link: '#',
+      link: '/shop',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -137,7 +137,7 @@ const Navbar = () => {
     },
     {
       name: 'Bag',
-      link: '#',
+      link: '/shop',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'

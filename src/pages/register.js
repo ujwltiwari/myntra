@@ -1,8 +1,26 @@
 import { useState } from 'react';
-export default function Register() {
+import RegisterComp from '@/components/Auth/Register/Register';
+import Navbar from '@/components/Layout/Navbar/Navbar';
+import { Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+
+  const toastify = () => {
+    toast('Your Account Has Been Created!', {
+      icon: '👏',
+      duration: 4000,
+      style: {
+        borderRadius: '10px',
+        background: '#333',
+        color: '#fff',
+        marginTop: 50,
+      },
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +42,11 @@ export default function Register() {
       if (response.ok) {
         console.log('Registration successful', response);
         const data = await response.json();
-        console.error('Registration successful:', data);
+        console.log('Registration successful:', data);
+        toastify();
+        setEmail('');
+        setPassword('');
+        setName('');
         // Redirect or show a success message
       } else {
         const data = await response.json();
@@ -39,32 +61,16 @@ export default function Register() {
 
   return (
     <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type='text'
-          placeholder='Full Name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-
-        <button type='submit'>Register</button>
-      </form>
+      <Toaster />
+      <Navbar />
+      <RegisterComp
+        setEmail={setEmail}
+        setPassword={setPassword}
+        setName={setName}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
-}
+};
+
+export default Register;

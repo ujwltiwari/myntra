@@ -2,15 +2,24 @@ import Login from '@/components/Auth/Login/Login';
 import Navbar from '@/components/Layout/Navbar/Navbar';
 import { fetchUserDetails } from '@/redux/actions/userActions';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { verifyToken } from '../pages/api/authMiddleware'; // Import your verifyToken function here
+import { parse } from 'cookie';
 
-function Register({ fetchUserDetails, userDetails }) {
+function Register({ fetchUserDetails, userDetails, user }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   console.log('userDetails', userDetails);
+  console.log('user', user);
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,3 +77,32 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
+export async function getServerSideProps(context) {
+  try {
+    // Parse the authToken from cookies
+    const cookies = parse(context.req.headers.cookie || '');
+    const authToken = cookies.authToken || null;
+
+    // Validate the authToken
+    const user = await verifyToken(authToken);
+
+    // Check if the user is not authenticated
+    if (!user) {
+      // Now, you have the user object available in the props
+      return {
+        props: { user: null }, // You can also omit the 'user' prop if you prefer
+      };
+    }
+
+    // If user is authenticated, redirect
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.error('error', error);
+  }
+}

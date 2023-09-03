@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken';
 
-export const verifyToken = (authToken) => {
+export const verifyToken = async (authToken) => {
   // Validate the authToken
   let user = null;
   if (authToken) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Address = () => {
   return (
-    <div className='flex gap-4 justify-between items-center p-4 border border-bg-[#eaeaec]'>
+    <div className='flex gap-4 justify-between items-center p-4 rounded-sm border border-bg-[#eaeaec]'>
       <div className='text-[13px] text-gray-500 leading-[22px]'>
         <p>
           Deliver to:{' '}

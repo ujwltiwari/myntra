@@ -62,6 +62,12 @@ dependencies:
   react-redux:
     specifier: ^8.1.2
     version: 8.1.2(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+  react-show-more:
+    specifier: ^2.0.0
+    version: 2.0.0(prop-types@15.8.1)(react@18.2.0)
+  react-show-more-text:
+    specifier: ^1.6.2
+    version: 1.6.2(react@18.2.0)
   redux:
     specifier: ^4.2.1
     version: 4.2.1
@@ -129,6 +135,14 @@ packages:
       ts-invariant: 0.10.3
       tslib: 2.6.2
       zen-observable-ts: 1.2.5
+    dev: false
+
+  /@babel/polyfill@7.12.1:
+    resolution: {integrity: sha512-X0pi0V6gxLi6lFZpGmeNa4zxtwEmCs42isWLNjZZDE0Y8yVfgu0T2OAHlzBbdYlqbW/YXVvoBHpATEM+goCj8g==}
+    deprecated: 🚨 This package has been deprecated in favor of separate inclusion of a polyfill and regenerator-runtime (when needed). See the @babel/polyfill docs (https://babeljs.io/docs/en/babel-polyfill) for more information.
+    dependencies:
+      core-js: 2.6.12
+      regenerator-runtime: 0.13.11
     dev: false
 
   /@babel/runtime@7.22.11:
@@ -925,6 +939,12 @@ packages:
   /cookie@0.5.0:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /core-js@2.6.12:
+    resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
+    deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
+    requiresBuild: true
     dev: false
 
   /cross-fetch@3.1.8:
@@ -2710,6 +2730,37 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
+  /react-show-more-text@1.6.2(react@18.2.0):
+    resolution: {integrity: sha512-Z6tRcnEosHvo07vZw36LxCjqYq4ghgaDI273b5XcayJ1PYbT56OKbaQlPqH7W9LGF5rhUVIhEDBPURuG5eO/Uw==}
+    peerDependencies:
+      react: 16 - 18.x
+    dependencies:
+      '@babel/polyfill': 7.12.1
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /react-show-more@2.0.0(prop-types@15.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-PlB/Ni+w0WVFmvQIqF6x6AElix51O73LbHOIzvPLyWXK8fwEz7+ES+vw7+EC/Taw0NZ3LGkwaHslpMiUh+1bQw==}
+    peerDependencies:
+      react: <= 16.x.x
+    dependencies:
+      react: 18.2.0
+      react-truncate: 2.4.0(prop-types@15.8.1)(react@18.2.0)
+    transitivePeerDependencies:
+      - prop-types
+    dev: false
+
+  /react-truncate@2.4.0(prop-types@15.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-3QW11/COYwi6iPUaunUhl06DW5NJBJD1WkmxW5YxqqUu6kvP+msB3jfoLg8WRbu57JqgebjVW8Lknw6T5/QZdA==}
+    peerDependencies:
+      prop-types: <= 15.x.x
+      react: <= 16.x.x
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -2776,6 +2827,10 @@ packages:
       get-intrinsic: 1.2.1
       globalthis: 1.0.3
       which-builtin-type: 1.1.3
+    dev: false
+
+  /regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
 
   /regenerator-runtime@0.14.0:

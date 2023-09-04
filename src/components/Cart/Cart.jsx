@@ -5,9 +5,9 @@ import Offers from './Offers';
 const Cart = () => {
   return (
     <div className='flex justify-center'>
-      <div className='flex mt-8 gap-2'>
+      <div className='flex flex-col md:flex-row mt-8 gap-2'>
         {/* left side */}
-        <div className='w-[60%] lg:w-[600px]'>
+        <div className='w-full p-4 md:p-0 md:w-[60%] lg:w-[600px]'>
           <Address />
           <Offers />
           <div className='flex justify-between items-center gap-4 p-4 my-2'>

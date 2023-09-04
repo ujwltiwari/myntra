@@ -18,6 +18,7 @@ module.exports = {
     },
     colors: {
       myntraPink: '#FF3F6C',
+      black: '#000000',
     },
   },
   plugins: [require('flowbite/plugin')],

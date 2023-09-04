@@ -40,7 +40,7 @@ const ProductDetail = () => {
     console.log('toastify called');
     toast[type](message, {
       icon: <IoCartSharp color='#FF3E6C' size={30} />,
-      duration: 400000,
+      duration: 4000,
       style: {
         // color: '#fff',
         marginTop: 50,

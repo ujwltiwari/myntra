@@ -5,7 +5,7 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import { HiArrowSmallLeft } from 'react-icons/hi2';
 import { IoSearchOutline } from 'react-icons/io5';
 
-const Navbar = () => {
+const CartNavbar = () => {
   const MenuItems = [
     {
       name: 'Men',
@@ -156,72 +156,62 @@ const Navbar = () => {
     },
   ];
   return (
-    <nav className='bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-lg p-5 flex gap-2 justify-between'>
-      <div className='flex items-center gap-2 md:gap-6'>
-        <div className='md:hidden'>
-          <HiArrowSmallLeft size={30} />
-        </div>
-        <Image
-          src={'/images/myntra.webp'}
-          width={60}
-          height={25}
-          alt='myntra'
-          className='md:ml-10 w-[40px] h-auto md:w-[60px]'
-        />
+    <nav className='bg-white border-gray-100 dark:bg-gray-900 dark:border-gray-700 border-b-[1px] p-5 flex gap-2 justify-between'>
+      <Image
+        src={'/images/myntra.webp'}
+        width={60}
+        height={25}
+        alt='myntra'
+        className='md:ml-10 w-[54px] h-auto md:w-[60px]'
+      />
 
-        {/* Menu Items */}
-        <ul className='hidden gap-6 items-center sm:flex'>
-          {MenuItems.map((menu, idx) => (
-            <Link href={menu.link} key={idx}>
-              <li
-                className='font-extrabold text-sm uppercase'
-                style={{ fontSize: 12, fontWeight: 700 }}
-              >
-                {menu.name}
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+      {/* Menu Items */}
+      <ul className='hidden gap-6 items-center sm:flex'>
+        <li className='tracking-widest text-[#20BD99] text-[12px] uppercase font-semibold border-b-2 border-[#20BD99] '>
+          Bag
+        </li>
+        <li
+          className='h-[4px] w-[50px]'
+          style={{
+            display: 'inline-block',
+            borderTop: '1px dashed #696B79',
+            height: '4px',
+            width: '50px',
+            maxWidth: '200px',
+          }}
+        />
+        <li className='tracking-widest text-gray-600 text-[12px] uppercase font-semibold '>
+          Address
+        </li>
+        <li
+          className='h-[4px] w-[50px]'
+          style={{
+            display: 'inline-block',
+            borderTop: '1px dashed #696B79',
+            height: '4px',
+            width: '50px',
+            maxWidth: '200px',
+          }}
+        />
+        <li className='tracking-widest text-gray-600 text-[12px] uppercase font-semibold'>
+          Payment
+        </li>
+      </ul>
       {/* Menu Items */}
 
-      <div className='flex items-center gap-6 w-1/2'>
-        {/* Search Bar */}
-        <SearchBar />
-        {/* Search Bar */}
-
-        {/* Profile Icons */}
-        <ul className='hidden md:flex items-center justify-center gap-8 mr-10'>
-          {ProfileItems.map((item, idx) => (
-            <Link key={idx} href={item.link}>
-              <li
-                className='font-extrabold text-sm flex flex-col'
-                style={{ fontSize: 12, fontWeight: 600, alignItems: 'center' }}
-              >
-                <span>{item.icon}</span>
-                <span>{item.name}</span>
-              </li>
-            </Link>
-          ))}
-        </ul>
-        {/* Profile Icons */}
+      <div className='flex items-center gap-2'>
+        <img
+          src='https://constant.myntassets.com/checkout/assets/img/sprite-secure.png'
+          className='secureIcon'
+          width='26'
+          height='28'
+        />
+        <div className='text-[12px] font-semibold tracking-widest'>
+          100% SECURE
+        </div>
       </div>
-      {/* Mobile Icons */}
-      <ul className='flex items-center gap-4 md:hidden'>
-        {MobileItems.map((item, idx) => (
-          <Link key={idx} href={item.link}>
-            <li
-              className='font-extrabold text-sm flex flex-col'
-              style={{ fontSize: 12, fontWeight: 600, alignItems: 'center' }}
-            >
-              <span>{item.icon}</span>
-            </li>
-          </Link>
-        ))}
-      </ul>
-      {/* Mobile Icons */}
     </nav>
   );
 };
 
-export default Navbar;
+export default CartNavbar;

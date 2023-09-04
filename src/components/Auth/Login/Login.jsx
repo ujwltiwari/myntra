@@ -4,8 +4,9 @@ import Mail from '../../../../public/icons/Mail';
 import Password from '../../../../public/icons/Password';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from '@/components/Loader/Loader';
 
-const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
+const Login = ({ email, setEmail, setPassword, handleSubmit, loading }) => {
   console.log('email', email);
 
   return (
@@ -72,7 +73,7 @@ const Login = ({ email, setEmail, setPassword, handleSubmit }) => {
               type='submit'
               className='mt-6 w-full uppercase bg-myntraPink rounded-sm'
             >
-              continue
+              {loading ? <Loader size='md' /> : 'continue'}
             </Button>
           </form>
           <div className='mt-6 text-[12px]'>

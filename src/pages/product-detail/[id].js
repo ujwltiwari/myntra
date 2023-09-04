@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout/Layout';
 import ProductDetail from '@/components/Product/ProductDetail/ProductDetail';
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 
 const ProductDetails = () => {

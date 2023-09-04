@@ -6,7 +6,7 @@ import GET_POST_QUERY from './SingleProductQuery.gql';
 import { useQuery } from '@apollo/client';
 import Loader from '@/components/Loader/Loader';
 import ProductRating from '../ProductRating/ProductRating';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Tooltip } from 'flowbite-react';
 import Bag from '../../../../public/icons/Bag';
 import Heart from '../../../../public/icons/Heart';
@@ -15,13 +15,39 @@ import DeliveryVehicle from '../../../../public/icons/DeliveryVehicle';
 import ProductOffers from './ProductOffers';
 import Detail from '../../../../public/icons/Detail';
 import ProductReviews from './ProductReviews';
+import { AddToCart } from '@/redux/actions/cartActions';
+import { toast, Toaster } from 'react-hot-toast';
+import { IoCartSharp } from 'react-icons/io5';
+import { useRouter } from 'next/router';
 
 const ProductDetail = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const sizes = useSelector((state) => state.size.value);
+
   console.log('sizes', sizes);
-  const { loading, error, data } = useQuery(GET_POST_QUERY);
+  const { loading, error, data } = useQuery(GET_POST_QUERY, {
+    variables: {
+      productId: parseInt(router.query.id),
+    },
+  });
+
+  console.log('error', error);
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+
+  const toastify = (message, type) => {
+    console.log('toastify called');
+    toast[type](message, {
+      icon: <IoCartSharp color='#FF3E6C' size={30} />,
+      duration: 400000,
+      style: {
+        // color: '#fff',
+        marginTop: 50,
+        width: '700px',
+      },
+    });
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -29,10 +55,15 @@ const ProductDetail = () => {
     }
   }, [data, loading]);
 
-  const handleAddtoCart = (product) => {};
+  const AddItemToCart = () => {
+    console.log('AddItemToCart called');
+    dispatch(AddToCart(product));
+    toastify(`${product.name.slice(0, 15 || 5)}... Added to Cart`, 'success');
+  };
 
   return (
     <div className='2xl:px-[150px]'>
+      <Toaster />
       <DefaultBreadcrumb
         category={'Shirts'}
         name={'Product.name'}
@@ -118,7 +149,7 @@ const ProductDetail = () => {
             <div className='flex gap-4 mt-6 mb-3'>
               <Button
                 className='add-cart flex justify-center items-center h-[54px] w-[60%] rounded-[4px] text-[16px] uppercase font-semibold bg-[#FF3E6C] hover:bg-pink-500!important'
-                onClick={handleAddtoCart}
+                onClick={AddItemToCart}
               >
                 <Bag />
                 &nbsp;&nbsp; Add to Bag

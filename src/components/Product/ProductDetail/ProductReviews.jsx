@@ -79,7 +79,12 @@ const ProductReviews = () => {
             <span className='flex items-center text-[13px] gap-1'>
               5 <HiStar color='#D5D5DA' size={14} />
             </span>
-            <Progress progress={45} size='sm' className='w-[120px] ' />
+            <Progress
+              color='indigo'
+              progress={45}
+              size='sm'
+              className='w-[120px] '
+            />
             <p className='text-[12px]'>23421</p>
           </div>
           <div className='flex items-center gap-2 mb-1'>
@@ -147,8 +152,8 @@ const ProductReviews = () => {
         <span className='text-[13px] text-gray-600 font-normal'>Fit</span>
         <div className='flex gap-4 items-center mt-[-10px]'>
           <Progress
-            color='blue'
-            progress={45}
+            color='purple'
+            progress={67}
             size='sm'
             className='w-[140px] '
           />
@@ -159,8 +164,8 @@ const ProductReviews = () => {
         <span className='text-[13px] text-gray-600 font-normal'>Length</span>
         <div className='flex gap-4 items-center mt-[-10px]'>
           <Progress
-            color='blue'
-            progress={45}
+            color='purple'
+            progress={76}
             size='sm'
             className='w-[140px] '
           />

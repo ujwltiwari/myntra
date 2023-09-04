@@ -5,8 +5,15 @@ import Password from '../../../../public/icons/Password';
 import Image from 'next/image';
 import Name from '../../../../public/icons/Name';
 import Link from 'next/link';
+import Loader from '@/components/Loader/Loader';
 
-const Register = ({ setEmail, setName, setPassword, handleSubmit }) => {
+const Register = ({
+  setEmail,
+  setName,
+  setPassword,
+  handleSubmit,
+  loading,
+}) => {
   return (
     <div className='bg-[#FCEEEB] flex justify-center p-8'>
       {/* Sign Offer Info */}
@@ -84,7 +91,7 @@ const Register = ({ setEmail, setName, setPassword, handleSubmit }) => {
               type='submit'
               className='mt-6 w-full uppercase bg-myntraPink rounded-sm'
             >
-              continue
+              {loading ? <Loader size='md' /> : 'continue'}
             </Button>
           </form>
           <div className='mt-6 text-[12px]'>

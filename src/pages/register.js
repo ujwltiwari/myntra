@@ -8,9 +8,10 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const toastify = () => {
-    toast('Your Account Has Been Created!', {
+  const toastify = (message = 'Your Account Has Been Created!') => {
+    toast(message, {
       icon: '👏',
       duration: 4000,
       style: {
@@ -26,6 +27,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await fetch('/api/auth', {
         method: 'POST',
         headers: {
@@ -48,9 +50,12 @@ const Register = () => {
         setPassword('');
         setName('');
         // Redirect or show a success message
+        setLoading(false);
       } else {
         const data = await response.json();
         console.error('Registration failed:', data.message);
+        toastify(data.message);
+        setLoading(false);
         // Handle registration error, e.g., show an error message
       }
     } catch (error) {
@@ -68,6 +73,7 @@ const Register = () => {
         setPassword={setPassword}
         setName={setName}
         handleSubmit={handleSubmit}
+        loading={loading}
       />
     </div>
   );

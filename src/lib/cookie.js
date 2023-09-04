@@ -6,7 +6,7 @@ export function setTokenCookie(res, token) {
     httpOnly: true, // The cookie cannot be accessed via JavaScript
     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
     sameSite: 'strict', // Enforce same-site attribute
-    maxAge: 3600, // Token expiration time in seconds (adjust as needed)
+    maxAge: 365 * 24 * 60 * 60, // Token expiration time in seconds (365 days)
     path: '/', // Cookie path (adjust as needed)
   };
 

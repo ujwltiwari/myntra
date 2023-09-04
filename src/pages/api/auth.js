@@ -59,7 +59,7 @@ export default async function handler(req, res) {
           { userId: user.data.users[0].id },
           process.env.JWT_SECRET, // Use environment variable for the secret
           {
-            expiresIn: '1h', // Token expiration time
+            expiresIn: '365d', // Token expiration time
           }
         );
 

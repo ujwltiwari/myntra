@@ -6,14 +6,40 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { verifyToken } from '../pages/api/authMiddleware'; // Import your verifyToken function here
 import { parse } from 'cookie';
+import { Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 function Register({ fetchUserDetails, userDetails, user }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   console.log('userDetails', userDetails);
   console.log('user', user);
+
+  const toastify = (message, type) => {
+    if (type === 'error') {
+      toast.error(message, {
+        duration: 4000,
+        style: {
+          background: '#333',
+          color: '#fff',
+          marginTop: 50,
+        },
+      });
+    } else {
+      toast(message, {
+        icon: '👏',
+        duration: 4000,
+        style: {
+          background: '#333',
+          color: '#fff',
+          marginTop: 50,
+        },
+      });
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -25,6 +51,7 @@ function Register({ fetchUserDetails, userDetails, user }) {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await fetch('/api/auth', {
         method: 'POST',
         headers: {
@@ -44,10 +71,14 @@ function Register({ fetchUserDetails, userDetails, user }) {
         fetchUserDetails(data.uid);
         // Redirect or show a success message
         router.push('/profile');
+        setLoading(false);
+        toastify('Successfully Logged In', 'success');
       } else {
         const data = await response.json();
         // Handle registration error, e.g., show an error message
         console.error('Registration failed:', data.message);
+        toastify(data.message, 'error');
+        setLoading(false);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -57,12 +88,14 @@ function Register({ fetchUserDetails, userDetails, user }) {
 
   return (
     <>
+      <Toaster />
       <Navbar />
       <Login
         email={email}
         setEmail={setEmail}
         setPassword={setPassword}
         handleSubmit={handleSubmit}
+        loading={loading}
       />
     </>
   );

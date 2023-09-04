@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
     // If user is authenticated, redirect
     return {
       redirect: {
-        destination: '/',
+        destination: '/login',
         permanent: false,
       },
     };

@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Address from './Address';
 import Offers from './Offers';
+import SingleCartItem from './SingleCartItem';
 
 const Cart = () => {
+  const { cart } = useSelector((state) => state.cart);
+
   return (
     <div className='flex justify-center'>
       <div className='flex flex-col md:flex-row mt-8 gap-2'>
@@ -38,6 +42,7 @@ const Cart = () => {
               <button className='uppercase'>Move to Wishlist</button>
             </div>
           </div>
+          <SingleCartItem product={cart[0]} />
         </div>
         {/* left side */}
         <span className='h-full w-[1px] bg-[#eaeaec] ml-1'></span>

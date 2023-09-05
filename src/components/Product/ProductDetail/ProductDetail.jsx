@@ -24,11 +24,12 @@ const ProductDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const sizes = useSelector((state) => state.size.value);
+  const [id, setId] = useState('');
+  console.log('router', router);
 
-  console.log('sizes', sizes);
   const { loading, error, data } = useQuery(GET_POST_QUERY, {
     variables: {
-      productId: parseInt(router.query.id),
+      productId: parseInt(2),
     },
   });
 

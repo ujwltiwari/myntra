@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Address from './Address';
 import Offers from './Offers';
 import SingleCartItem from './SingleCartItem';
+import NotSelected from '../../../public/icons/NotSelected';
+import Selected from '../../../public/icons/Selected';
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.cart);
+  console.log('cart', cart);
+  const [selectedItemIds, setSelectedItemIds] = useState([]); // Initialize selected item IDs as an array
+
+  const handleSelected = (itemId) => {
+    // Toggle the selection of the item
+    setSelectedItemIds((prevSelectedItems) => {
+      if (prevSelectedItems.includes(itemId)) {
+        // Item is already selected, so deselect it
+        return prevSelectedItems.filter((id) => id !== itemId);
+      } else {
+        //Item is not selected, so select it & push to selectedItemIds Array
+        return [...prevSelectedItems, itemId];
+      }
+    });
+  };
+
+  const handleAllProductSelection = () => {
+    console.log('handleAllProductSelection called');
+    if (selectedItemIds.length !== cart.length) {
+      // select all item
+      setSelectedItemIds(cart.map((x) => x.id));
+    } else {
+      // de-select all the items
+      setSelectedItemIds([]);
+    }
+  };
+
+  console.log(
+    'handleAllProductSelection selected items',
+    selectedItemIds,
+    cart.length
+  );
 
   return (
     <div className='flex justify-center'>
@@ -16,24 +50,46 @@ const Cart = () => {
           <Offers />
           <div className='flex justify-between items-center gap-4 p-4 my-2'>
             <div className='flex gap-4 items-center'>
-              <div class='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink'>
-                <svg
-                  width='16px'
-                  height='16px'
-                  viewBox='0 0 16 16'
-                  class='bulkActionStrip-activeIcon'
-                >
-                  <path
-                    d='M827.006 389c1.1 0 1.994.893 1.994 1.994v12.012c0 1.1-.893 1.994-1.994 1.994h-12.012c-1.1 0-1.994-.893-1.994-1.994v-12.012c0-1.1.893-1.994 1.994-1.994zm-2.337 7.2h-7.394a.748.748 0 00-.518.209l-.17.163-.012.012a.519.519 0 00.01.734l.171.167c.14.136.327.212.522.212h7.388a.748.748 0 00.527-.217l.163-.162a.525.525 0 00-.002-.746l-.162-.158a.748.748 0 00-.523-.214z'
-                    transform='translate(-813 -389)'
-                    stroke='none'
-                    stroke-width='1'
-                    fill-rule='evenodd'
-                  ></path>
-                </svg>
-              </div>
+              {/* Show Icons According to Product Selection */}
+              {cart.length === selectedItemIds.length ? (
+                <div className='mr-4 -mt-4' onClick={handleAllProductSelection}>
+                  <Selected />
+                </div>
+              ) : (
+                <>
+                  {selectedItemIds.length > 0 ? (
+                    <div
+                      className='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink'
+                      onClick={() => setSelectedItemIds([])}
+                    >
+                      <svg
+                        width='16px'
+                        height='16px'
+                        viewBox='0 0 16 16'
+                        className='bulkActionStrip-activeIcon'
+                      >
+                        <path
+                          d='M827.006 389c1.1 0 1.994.893 1.994 1.994v12.012c0 1.1-.893 1.994-1.994 1.994h-12.012c-1.1 0-1.994-.893-1.994-1.994v-12.012c0-1.1.893-1.994 1.994-1.994zm-2.337 7.2h-7.394a.748.748 0 00-.518.209l-.17.163-.012.012a.519.519 0 00.01.734l.171.167c.14.136.327.212.522.212h7.388a.748.748 0 00.527-.217l.163-.162a.525.525 0 00-.002-.746l-.162-.158a.748.748 0 00-.523-.214z'
+                          transform='translate(-813 -389)'
+                          stroke='none'
+                          stroke-width='1'
+                          fill-rule='evenodd'
+                        ></path>
+                      </svg>
+                    </div>
+                  ) : (
+                    <div
+                      className='mr-4 -mt-4'
+                      onClick={handleAllProductSelection}
+                    >
+                      <NotSelected />
+                    </div>
+                  )}
+                </>
+              )}
+              {/* Show Icons According to Product Selection */}
               <p className='text-[14px] font-bold uppercase'>
-                2/23 Items Selected
+                {selectedItemIds.length} / {cart.length} Items Selected
               </p>
             </div>
             <div className='flex gap-4 text-[11px] text-gray-600 font-bold'>
@@ -42,7 +98,15 @@ const Cart = () => {
               <button className='uppercase'>Move to Wishlist</button>
             </div>
           </div>
-          <SingleCartItem product={cart[0]} />
+
+          {cart.map((item, idx) => (
+            <SingleCartItem
+              key={idx}
+              product={item}
+              isSelected={selectedItemIds.includes(item.id)}
+              handleSelected={() => handleSelected(item.id)}
+            />
+          ))}
         </div>
         {/* left side */}
         <span className='h-full w-[1px] bg-[#eaeaec] ml-1'></span>

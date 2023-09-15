@@ -2,7 +2,7 @@ import React from 'react';
 
 const NotSelected = () => {
   return (
-    <div class='itemComponents-base-animationContainer w-[16px] fill-black absolute'>
+    <div className='itemComponents-base-animationContainer w-[16px] fill-black absolute cursor-pointer'>
       <svg width='16px' height='16px' viewBox='0 0 16 16'>
         <rect
           stroke='#282C3F'

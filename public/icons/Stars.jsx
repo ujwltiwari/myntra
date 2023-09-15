@@ -8,7 +8,7 @@ const Stars = () => {
       height='16'
       viewBox='0 0 20 16'
     >
-      <g fill='none' fill-rule='evenodd'>
+      <g fill='none' fillRule='evenodd'>
         <g>
           <g>
             <g>

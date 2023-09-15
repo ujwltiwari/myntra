@@ -9,7 +9,7 @@ const DownArrow = () => {
       viewBox='0 0 6 3'
       className='itemComponents-base-dropDown'
     >
-      <path fill-rule='evenodd' d='M0 0h6L3 3z'></path>
+      <path fillRule='evenodd' d='M0 0h6L3 3z'></path>
     </svg>
   );
 };

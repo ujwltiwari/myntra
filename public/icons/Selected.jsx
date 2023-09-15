@@ -2,13 +2,13 @@ import React from 'react';
 
 const Selected = () => {
   return (
-    <div class='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink absolute'>
+    <div className='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink absolute cursor-pointer'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='16'
         height='16'
         viewBox='0 0 16 16'
-        class='itemComponents-base-activeProduct '
+        className='itemComponents-base-activeProduct '
       >
         <path
           fillRule='evenodd'

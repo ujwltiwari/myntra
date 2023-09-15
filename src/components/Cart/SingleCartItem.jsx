@@ -5,8 +5,14 @@ import DownArrow from '../../../public/icons/DownArrow';
 import Returns from '../../../public/icons/Returns';
 import NotSelected from '../../../public/icons/NotSelected';
 import Selected from '../../../public/icons/Selected';
+import Link from 'next/link';
 
-const SingleCartItem = ({ product, isSelected, handleSelected }) => {
+const SingleCartItem = ({
+  product,
+  isSelected,
+  handleSelected,
+  handleItemDelete,
+}) => {
   const image = product.image;
   console.log('singlecartitem', product);
 
@@ -31,8 +37,12 @@ const SingleCartItem = ({ product, isSelected, handleSelected }) => {
 
       {/* Product Details */}
       <div className='w-[70%] text-[14px]'>
-        <p className='font-semibold'>Flying Machine</p>
-        <p className='text-[13px] md:truncate text-gray-600'>{product.name}</p>
+        <Link href={`/product-detail/${product.id}`}>
+          <p className='font-semibold'>Flying Machine</p>
+          <p className='text-[13px] md:truncate text-gray-600'>
+            {product.name}
+          </p>
+        </Link>
         <p className='text-[12px] truncate text-gray-400'>
           Sold By: {product.seller}
         </p>
@@ -62,7 +72,7 @@ const SingleCartItem = ({ product, isSelected, handleSelected }) => {
         </div>
       </div>
       {/* Product Details */}
-      <div className='ml-auto cursor-pointer'>
+      <div className='ml-auto cursor-pointer' onClick={handleItemDelete}>
         <Cross />
       </div>
     </div>

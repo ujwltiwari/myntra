@@ -121,7 +121,7 @@ const ProductDetail = () => {
                   onClick={() => setSelectedSize(idx)}
                 >
                   XS
-                  <span class='size-buttons-size-strike-show'></span>
+                  <span className='size-buttons-size-strike-show'></span>
                 </button>
               </Tooltip>
               {sizes.map((size, idx) => (

@@ -1,15 +1,31 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Address from './Address';
 import Offers from './Offers';
 import SingleCartItem from './SingleCartItem';
 import NotSelected from '../../../public/icons/NotSelected';
 import Selected from '../../../public/icons/Selected';
+import { DeleteFromCart } from '@/redux/actions/cartActions';
+import { IoCartSharp } from 'react-icons/io5';
+import { toast, Toaster } from 'react-hot-toast';
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
   console.log('cart', cart);
   const [selectedItemIds, setSelectedItemIds] = useState([]); // Initialize selected item IDs as an array
+
+  const toastify = (message, type) => {
+    console.log('toastify called');
+    toast[type](message, {
+      duration: 4000,
+      style: {
+        // color: '#fff',
+        marginTop: 50,
+        width: '700px',
+      },
+    });
+  };
 
   const handleSelected = (itemId) => {
     // Toggle the selection of the item
@@ -35,14 +51,15 @@ const Cart = () => {
     }
   };
 
-  console.log(
-    'handleAllProductSelection selected items',
-    selectedItemIds,
-    cart.length
-  );
+  const handleItemDelete = (item) => {
+    console.log('handleItemDelete called');
+    dispatch(DeleteFromCart(item.id));
+    toastify(`${item.name.slice(0, 15 || 5)}... Deleted from Cart`, 'error');
+  };
 
   return (
     <div className='flex justify-center'>
+      <Toaster />
       <div className='flex flex-col md:flex-row mt-8 gap-2'>
         {/* left side */}
         <div className='w-full p-4 md:p-0 md:w-[60%] lg:w-[600px]'>
@@ -59,7 +76,7 @@ const Cart = () => {
                 <>
                   {selectedItemIds.length > 0 ? (
                     <div
-                      className='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink'
+                      className='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink cursor-pointer'
                       onClick={() => setSelectedItemIds([])}
                     >
                       <svg
@@ -73,7 +90,7 @@ const Cart = () => {
                           transform='translate(-813 -389)'
                           stroke='none'
                           stroke-width='1'
-                          fill-rule='evenodd'
+                          fillRule='evenodd'
                         ></path>
                       </svg>
                     </div>
@@ -105,6 +122,7 @@ const Cart = () => {
               product={item}
               isSelected={selectedItemIds.includes(item.id)}
               handleSelected={() => handleSelected(item.id)}
+              handleItemDelete={() => handleItemDelete(item)}
             />
           ))}
         </div>

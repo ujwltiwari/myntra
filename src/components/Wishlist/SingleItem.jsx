@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { discountCalcultor } from '@/utils/discountCalculator';
+import { RxCross1 } from 'react-icons/rx';
 
-const SingleItem = ({ product }) => {
+const SingleItem = ({ product, handleItemDelete }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <>
@@ -13,6 +14,12 @@ const SingleItem = ({ product }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        <div
+          className='flex items-center justify-center itemcard-removeIcon'
+          onClick={handleItemDelete}
+        >
+          <RxCross1 size={13} />
+        </div>
         <Link href={`/product-detail/${product.id}`} target='_blank'>
           {/* image */}
           <div className='image-wrapper h-[280px]'>
@@ -26,33 +33,35 @@ const SingleItem = ({ product }) => {
           </div>
           {/* image */}
 
-          <div className='product-info mt-2 px-2 mb-2'>
-            {/* product info */}
-            <p className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap mt-1'>
-              Typography Print T-Shirt To Be Used Always
-            </p>
-            {/* product info */}
-          </div>
+          <div className='h-auto border-[1px] border-[#e9e9eb]'>
+            <div className='product-info mt-2 px-2 mb-2'>
+              {/* product info */}
+              <p className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap mt-1'>
+                Typography Print T-Shirt To Be Used Always
+              </p>
+              {/* product info */}
+            </div>
 
-          {/* products pricing details */}
-          <div className='product-pricing mt-1 flex gap-1 items-center justify-center px-2'>
-            <p className='text-[13px] font-bold'>
-              Rs.{' '}
-              {product.price -
-                discountCalcultor(product.price, product.discount) * 100}
-            </p>
-            <p className='text-[11px] line-through text-gray-600/100'>
-              Rs. {product.price}
-            </p>
-            <p className='text-[11px] text-red-600/100'>
-              ({product.discount * 100}% OFF)
-            </p>
-          </div>
-          {/* products pricing details */}
+            {/* products pricing details */}
+            <div className='product-pricing mt-1 flex gap-1 items-center justify-center px-2'>
+              <p className='text-[13px] font-bold'>
+                Rs.{' '}
+                {product.price -
+                  discountCalcultor(product.price, product.discount) * 100}
+              </p>
+              <p className='text-[11px] line-through text-gray-600/100'>
+                Rs. {product.price}
+              </p>
+              <p className='text-[11px] text-red-600/100'>
+                ({product.discount * 100}% OFF)
+              </p>
+            </div>
+            {/* products pricing details */}
 
-          <button className='flex items-center w-full py-3 mt-6 tracking-wider text-[13px] text-myntraPink font-bold uppercase rounded-sm'>
-            Move to Bag
-          </button>
+            <button className='flex justify-center w-full py-3 px-2 mt-6 text-[13px] text-myntraPink font-bold uppercase rounded-sm border-t-[1px] border-[#e9e9eb]'>
+              Move to Bag
+            </button>
+          </div>
         </Link>
       </div>
       {/* Show Wishlist, Size & Other Info When Hovered */}

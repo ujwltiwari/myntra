@@ -6,6 +6,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 import cartReducer from './reducer/cartReducer';
+import wishlistReducer from './reducer/wishlistReducer';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   size: sizeReducer,
   user: persistReducer(persistConfig, userReducer), // user will be persisted
   cart: persistReducer(persistConfig, cartReducer), // cart will be persisted
+  wishlist: persistReducer(persistConfig, wishlistReducer), // cart will be persisted
 });
 
 // const persistedReducer = persistReducer(persistConfig, userReducer);

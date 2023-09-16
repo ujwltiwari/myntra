@@ -19,6 +19,7 @@ import { AddToCart } from '@/redux/actions/cartActions';
 import { toast, Toaster } from 'react-hot-toast';
 import { IoCartSharp } from 'react-icons/io5';
 import { useRouter } from 'next/router';
+import { AddToWishlist } from '@/redux/actions/wishlistActions';
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -61,6 +62,19 @@ const ProductDetail = () => {
     console.log('AddItemToCart called');
     dispatch(AddToCart(product));
     toastify(`${product.name.slice(0, 15 || 5)}... Added to Cart`, 'success');
+  };
+
+  const AddItemToWishlist = () => {
+    console.log('AddItemToWishlist called');
+    try {
+      dispatch(AddToWishlist(product));
+      toastify(
+        `${product.name.slice(0, 15 || 5)}... Added to Wishlist`,
+        'success'
+      );
+    } catch (err) {
+      console.log('wishlist', err);
+    }
   };
 
   return (
@@ -156,7 +170,10 @@ const ProductDetail = () => {
                 <Bag />
                 &nbsp;&nbsp; Add to Bag
               </Button>
-              <Button className='add-wishlist flex justify-center items-center h-[54px] w-[35%] rounded-[4px] text-[16px] text-gray-950 uppercase font-semibold bg-[#fff] border-[1px] border-gray-300 hover:border-gray-950'>
+              <Button
+                className='add-wishlist flex justify-center items-center h-[54px] w-[35%] rounded-[4px] text-[16px] text-gray-950 uppercase font-semibold bg-[#fff] border-[1px] border-gray-300 hover:border-gray-950'
+                onClick={AddItemToWishlist}
+              >
                 <Heart />
                 &nbsp;&nbsp;
                 <p>Wishlist</p>

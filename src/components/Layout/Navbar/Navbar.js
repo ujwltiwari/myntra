@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useReducer } from 'react';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { HiArrowSmallLeft } from 'react-icons/hi2';
 import { IoSearchOutline } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+  const { cart } = useSelector((state) => state.cart);
+  const { wishlist } = useSelector((state) => state.wishlist);
   const MenuItems = [
     {
       name: 'Men',
@@ -56,7 +59,7 @@ const Navbar = () => {
     },
     {
       name: 'Wishlist',
-      link: '/shop',
+      link: '/wishlist',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -120,7 +123,7 @@ const Navbar = () => {
     },
     {
       name: 'Wishlist',
-      link: '/shop',
+      link: '/wishlist',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -195,11 +198,25 @@ const Navbar = () => {
           {ProfileItems.map((item, idx) => (
             <Link key={idx} href={item.link}>
               <li
-                className='font-extrabold text-sm flex flex-col'
+                className='font-extrabold text-sm flex flex-col relative'
                 style={{ fontSize: 12, fontWeight: 600, alignItems: 'center' }}
               >
                 <span>{item.icon}</span>
                 <span>{item.name}</span>
+                {item.link.includes('cart') && cart.length > 0 && (
+                  <span className='desktop-badge text-[5px]'>
+                    {cart.length}
+                  </span>
+                )}
+
+                {item.link.includes('wishlist') && wishlist.length > 0 && (
+                  <span
+                    className='desktop-badge text-[5px]'
+                    style={{ top: '-4px', left: '29px' }}
+                  >
+                    {wishlist.length}
+                  </span>
+                )}
               </li>
             </Link>
           ))}

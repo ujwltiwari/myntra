@@ -51,7 +51,7 @@ const SingleCartItem = ({
             Size: 42 <DownArrow />
           </button>
           <button className='flex gap-2 items-center bg-gray-100 text-[13px] font-semibold px-[6px] py-[2px]'>
-            Qty: 1 <DownArrow />
+            Qty: {product.quantity} <DownArrow />
           </button>
         </div>
 

@@ -157,14 +157,15 @@ const CartNavbar = () => {
   ];
   return (
     <nav className='bg-white border-gray-100 dark:bg-gray-900 dark:border-gray-700 border-b-[1px] p-5 flex gap-2 justify-between'>
-      <Image
-        src={'/images/myntra.webp'}
-        width={60}
-        height={25}
-        alt='myntra'
-        className='md:ml-10 w-[54px] h-auto md:w-[60px]'
-      />
-
+      <Link href={'/'}>
+        <Image
+          src={'/images/myntra.webp'}
+          width={60}
+          height={25}
+          alt='myntra'
+          className='md:ml-10 w-[54px] h-auto md:w-[60px]'
+        />
+      </Link>
       {/* Menu Items */}
       <ul className='hidden gap-6 items-center sm:flex'>
         <li className='tracking-widest text-[#20BD99] text-[12px] uppercase font-semibold border-b-2 border-[#20BD99] '>

@@ -24,7 +24,7 @@ import { AddToWishlist } from '@/redux/actions/wishlistActions';
 const ProductDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const sizes = useSelector((state) => state.size.value);
+  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
   const [id, setId] = useState('');
   console.log('router', router);
 

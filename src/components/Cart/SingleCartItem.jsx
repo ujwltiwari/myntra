@@ -37,6 +37,7 @@ const SingleCartItem = ({
 
       {/* Product Details */}
       <div className='w-[70%] text-[14px]'>
+        <p className='text-[20px]'>{product.id}</p>
         <Link href={`/product-detail/${product.id}`}>
           <p className='font-semibold'>Flying Machine</p>
           <p className='text-[13px] md:truncate text-gray-600'>

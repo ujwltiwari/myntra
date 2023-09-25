@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   DELETE_FROM_CART,
   CLEAR_CART,
+  DELETE_SELECTED_FROM_CART,
 } from '../actions/cartActions';
 
 const initialState = {
@@ -28,13 +29,13 @@ const cartReducer = (state = initialState, action) => {
           return item;
         });
         return {
-          ...state,
-          cart,
+          // ...state,
+          ...cart,
         };
       } else {
         // If it's a new item, add it to the cart
         return {
-          ...state,
+          // ...state,
           cart: [...state.cart, newItem],
         };
       }
@@ -43,13 +44,21 @@ const cartReducer = (state = initialState, action) => {
       const itemToDelete = action.payload;
       const newcart = state.cart.filter((item) => item.id !== itemToDelete);
       return {
-        ...state,
+        // ...state,
         cart: [...newcart],
+      };
+
+    case DELETE_SELECTED_FROM_CART:
+      const filteredCart = action.payload;
+      console.log('Deleting from cart:', filteredCart);
+      return {
+        // ...state,
+        cart: [...filteredCart],
       };
 
     case CLEAR_CART:
       return {
-        ...state,
+        // ...state,
         cart: [],
       };
 

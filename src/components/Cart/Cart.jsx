@@ -5,14 +5,19 @@ import Offers from './Offers';
 import SingleCartItem from './SingleCartItem';
 import NotSelected from '../../../public/icons/NotSelected';
 import Selected from '../../../public/icons/Selected';
-import { DeleteFromCart } from '@/redux/actions/cartActions';
+import {
+  DeleteFromCart,
+  DeleteSelectedFromCart,
+} from '@/redux/actions/cartActions';
 import { IoCartSharp } from 'react-icons/io5';
 import { toast, Toaster } from 'react-hot-toast';
 import EmptyCart from './EmptyCart';
+import { AddSelectedToWishlist } from '@/redux/actions/wishlistActions';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
+  const { wishlist } = useSelector((state) => state.wishlist);
   console.log('cart', cart);
   const [selectedItemIds, setSelectedItemIds] = useState([]); // Initialize selected item IDs as an array
 
@@ -56,6 +61,32 @@ const Cart = () => {
     console.log('handleItemDelete called');
     dispatch(DeleteFromCart(item.id));
     toastify(`${item.name.slice(0, 15 || 5)}... Deleted from Cart`, 'error');
+  };
+
+  const handleSelectedItemDelete = () => {
+    // Remove selected items for cart -> filtering elements which selectedItemIds doesn't includes
+    const filteredCart = cart.filter(
+      (item) => !selectedItemIds.includes(item.id)
+    );
+
+    // dispatch -> updated / filtered cart items to cart reducer
+    dispatch(DeleteSelectedFromCart(filteredCart));
+    toastify('Selected Items Deleted', 'error');
+  };
+
+  const moveToWishlist = () => {
+    console.log('moveToWishlist called', selectedItemIds);
+    const itemsToMove = cart.filter((item) =>
+      selectedItemIds.includes(item.id)
+    );
+    dispatch(AddSelectedToWishlist(itemsToMove));
+    console.log('moveToWishlist wishlist', wishlist);
+
+    // delete moved items from cart
+    const filteredCart = cart.filter(
+      (item) => !selectedItemIds.includes(item.id)
+    );
+    dispatch(DeleteSelectedFromCart(filteredCart));
   };
 
   return (
@@ -116,9 +147,16 @@ const Cart = () => {
                   </p>
                 </div>
                 <div className='flex gap-4 text-[11px] text-gray-600 font-bold'>
-                  <button className='uppercase'>Remove</button>
+                  <button
+                    className='uppercase'
+                    onClick={handleSelectedItemDelete}
+                  >
+                    Remove
+                  </button>
                   <span className='h-[30px] w-[1px] bg-gray-300'></span>
-                  <button className='uppercase'>Move to Wishlist</button>
+                  <button className='uppercase' onClick={moveToWishlist}>
+                    Move to Wishlist
+                  </button>
                 </div>
               </div>
 

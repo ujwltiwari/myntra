@@ -22,7 +22,7 @@ const ProductOffers = ({ initialStyle }) => {
   return (
     <div style={initialStyle} className='mb-4'>
       <div className='flex gap-2 items-center'>
-        <span className='text-[14px] font-semibold uppercase'>Best Offers</span>{' '}
+        <span className='text-[14px] font-semibold uppercase'>Best Offers</span>
         <span>
           <Discount />
         </span>

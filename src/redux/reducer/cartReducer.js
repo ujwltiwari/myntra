@@ -14,7 +14,7 @@ const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       const newItem = { ...action.payload, quantity: 1 };
       const existingItemIndex = state.cart.findIndex(
-        (item) => item.id === newItem.id // Use a unique identifier for your items
+        (item) => item.id === newItem.id // Use an unique identifier for your items
       );
 
       if (existingItemIndex !== -1) {
@@ -30,7 +30,7 @@ const cartReducer = (state = initialState, action) => {
         });
         return {
           // ...state,
-          ...cart,
+          cart,
         };
       } else {
         // If it's a new item, add it to the cart

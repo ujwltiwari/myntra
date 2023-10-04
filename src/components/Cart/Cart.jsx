@@ -18,9 +18,9 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
-  console.log('cart', cart);
+  // console.log('cart', cart);
   const [selectedItemIds, setSelectedItemIds] = useState([]); // Initialize selected item IDs as an array
-
+  console.log('selectedItemIds', selectedItemIds);
   const toastify = (message, type) => {
     console.log('toastify called');
     toast[type](message, {

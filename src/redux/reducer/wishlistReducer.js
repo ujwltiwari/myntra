@@ -48,12 +48,12 @@ const wishlistReducer = (state = initialState, action) => {
       const filteredWishlist = action.payload;
       return {
         // ...state,
-        cart: [...filteredCart],
+        wishlist: [...filteredWishlist],
       };
 
     case CLEAR_WISHLIST:
       return {
-        ...state,
+        // ...state,
         wishlist: [],
       };
 

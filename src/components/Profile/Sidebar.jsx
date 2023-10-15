@@ -68,7 +68,7 @@ const Sidebar = () => {
               {menu.subMenu.map((item, idx) => (
                 <li
                   key={idx}
-                  className='text-[14px] text-gray-700 font-light mb-1'
+                  className='text-[13px] text-gray-700 font-light mb-1'
                 >
                   <Link href={`/my/${item.link}`}>{item.name}</Link>
                 </li>

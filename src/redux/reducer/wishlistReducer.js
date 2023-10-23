@@ -21,7 +21,7 @@ const wishlistReducer = (state = initialState, action) => {
       if (existingItemIndex === -1) {
         // If it's a new item, add it to the cart
         return {
-          // ...state,
+          ...state,
           wishlist: [...state.wishlist, newItem],
         };
       }
@@ -30,8 +30,8 @@ const wishlistReducer = (state = initialState, action) => {
       const itemsToAdd = action.payload;
       console.log('adding to wishlist:', itemsToAdd);
       return {
-        // ...state,
-        wishlist: [...state.wishlist, ...itemsToAdd],
+        ...state,
+        wishlist: [...state.wishlist, itemsToAdd],
       };
 
     case DELETE_FROM_WISHLIST:
@@ -40,14 +40,14 @@ const wishlistReducer = (state = initialState, action) => {
         (item) => item.id !== itemToDelete
       );
       return {
-        // ...state,
+        ...state,
         wishlist: [...newWishlist],
       };
 
     case DELETE_SELECTED_FROM_WISHLIST:
       const filteredWishlist = action.payload;
       return {
-        // ...state,
+        ...state,
         cart: [...filteredCart],
       };
 

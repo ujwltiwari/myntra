@@ -14,7 +14,7 @@ const SingleCartItem = ({
   handleItemDelete,
 }) => {
   const image = product.image;
-  console.log('singlecartitem', product);
+  // console.log('singlecartitem', product);
 
   return (
     <div className='flex gap-3 border border-bg-[#eaeaec] p-4 my-2'>

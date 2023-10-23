@@ -39,6 +39,7 @@ const SingleItem = ({ product, handleItemDelete }) => {
               <p className='text-[14px] overflow-hidden text-ellipsis whitespace-nowrap mt-1'>
                 Typography Print T-Shirt To Be Used Always
               </p>
+              <p className='text-[22px]'>{product.id}</p>
               {/* product info */}
             </div>
 
@@ -46,8 +47,10 @@ const SingleItem = ({ product, handleItemDelete }) => {
             <div className='product-pricing mt-1 flex gap-1 items-center justify-center px-2'>
               <p className='text-[13px] font-bold'>
                 Rs.{' '}
-                {product.price -
-                  discountCalcultor(product.price, product.discount) * 100}
+                {(
+                  product.price -
+                  discountCalcultor(product.price, product.discount) * 100
+                ).toFixed(2)}
               </p>
               <p className='text-[11px] line-through text-gray-600/100'>
                 Rs. {product.price}

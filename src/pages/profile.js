@@ -3,8 +3,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { verifyToken } from '../pages/api/authMiddleware'; // Import your verifyToken function here
 import { parse } from 'cookie';
+import Layout from '@/components/Layout/Layout';
+import Profile from '@/components/Profile/Profile';
 
-const Profile = () => {
+const Index = () => {
   const user = useSelector((state) => state.user.user);
   console.log('user', user);
 
@@ -15,19 +17,13 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <p>Welcome {user?.email}</p>
-      <button
-        onClick={handleDelete}
-        className='bg-myntraPink text-[#fff] p-4 text-center'
-      >
-        clear user from redux
-      </button>
-    </div>
+    <Layout>
+      <Profile />
+    </Layout>
   );
 };
 
-export default Profile;
+export default Index;
 
 export async function getServerSideProps(context) {
   try {

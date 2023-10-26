@@ -11,9 +11,9 @@ const RightArrow = () => {
       <path
         fill='none'
         stroke='#ff3e6c'
-        stroke-linecap='round'
+        strokeLinecap='round'
         stroke-linejoin='round'
-        stroke-width='4'
+        strokeWidth='4'
         d='m19 12l12 12l-12 12'
       />
     </svg>

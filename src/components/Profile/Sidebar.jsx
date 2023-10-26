@@ -57,10 +57,10 @@ const Sidebar = () => {
   ];
   return (
     <div className='border-r-[1px] border-gray-300 pr-4'>
-      {profileMenu.map((menu) => {
+      {profileMenu.map((menu, idx) => {
         return (
-          <>
-            <hr class='h-px my-6 bg-gray-300 border-0 dark:bg-gray-700'></hr>
+          <div key={idx}>
+            <hr className='h-px my-6 bg-gray-300 border-0 dark:bg-gray-700'></hr>
             <p className='text-[11px] text-gray-400 uppercase mb-4 '>
               {menu.title}
             </p>
@@ -70,11 +70,11 @@ const Sidebar = () => {
                   key={idx}
                   className='text-[13px] text-gray-700 font-light mb-1'
                 >
-                  <Link href={`/my/${item.link}`}>{item.name}</Link>
+                  <Link href={`/my${item.link}`}>{item.name}</Link>
                 </li>
               ))}
             </ul>
-          </>
+          </div>
         );
       })}
     </div>

@@ -70,7 +70,7 @@ function Register({ fetchUserDetails, userDetails, user }) {
         console.log('Registration successful:', data);
         fetchUserDetails(data.uid);
         // Redirect or show a success message
-        router.push('/profile');
+        router.push('/my/profile');
         setLoading(false);
         toastify('Successfully Logged In', 'success');
       } else {

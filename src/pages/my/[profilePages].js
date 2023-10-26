@@ -1,14 +1,19 @@
 import { deleteUserDetails } from '@/redux/actions/userActions';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { verifyToken } from '../pages/api/authMiddleware'; // Import your verifyToken function here
 import { parse } from 'cookie';
 import Layout from '@/components/Layout/Layout';
 import Profile from '@/components/Profile/Profile';
+import Address from '@/components/Profile/Address';
+import { verifyToken } from '../api/authMiddleware';
+import { useRouter } from 'next/router';
+import Sidebar from '@/components/Profile/Sidebar';
 
-const Index = () => {
+const ProfilePages = () => {
+  const router = useRouter();
+  const routeName = router.query.profilePages;
   const user = useSelector((state) => state.user.user);
-  console.log('user', user);
+  //   const actualPath = router.pathname.replace('/my/', '');
 
   const handleDelete = () => {
     console.log('handleDelete called');
@@ -16,14 +21,37 @@ const Index = () => {
     localStorage.removeItem('persist:root');
   };
 
+  const pageType = [
+    {
+      name: 'profile',
+      component: <Profile />,
+    },
+    {
+      name: 'address',
+      component: <Address />,
+    },
+  ];
+
+  console.log('router', routeName == routeName[0].name);
+
   return (
     <Layout>
-      <Profile />
+      <div className='w-[70%] m-auto border-b-[1px] border-gray-300 pb-2'>
+        <p className='font-semibold'>Account</p>
+        <p className='text-[12px]'>{user?.name}</p>
+      </div>
+      <div className='flex w-[70%] m-auto'>
+        <Sidebar />
+
+        {pageType.map((page) => {
+          return routeName === page.name && page.component;
+        })}
+      </div>
     </Layout>
   );
 };
 
-export default Index;
+export default ProfilePages;
 
 export async function getServerSideProps(context) {
   try {

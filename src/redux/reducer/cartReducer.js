@@ -35,7 +35,7 @@ const cartReducer = (state = initialState, action) => {
       } else {
         // If it's a new item, add it to the cart
         return {
-          // ...state,
+          ...state,
           cart: [...state.cart, newItem],
         };
       }
@@ -44,7 +44,7 @@ const cartReducer = (state = initialState, action) => {
       const itemToDelete = action.payload;
       const newcart = state.cart.filter((item) => item.id !== itemToDelete);
       return {
-        // ...state,
+        ...state,
         cart: [...newcart],
       };
 
@@ -52,13 +52,13 @@ const cartReducer = (state = initialState, action) => {
       const filteredCart = action.payload;
       console.log('Deleting from cart:', filteredCart);
       return {
-        // ...state,
+        ...state,
         cart: [...filteredCart],
       };
 
     case CLEAR_CART:
       return {
-        // ...state,
+        ...state,
         cart: [],
       };
 

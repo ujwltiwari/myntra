@@ -1,0 +1,33 @@
+mutation AddAddress(
+  $city: String!
+  $locality: String!
+  $mobile: String!
+  $name: String!
+  $pincode: String!
+  $state: String!
+  $street_address: String!
+  $user_id: uuid!
+) {
+  insert_addresses_one(
+    object: {
+      locality: $locality
+      mobile: $mobile
+      name: $name
+      pincode: $pincode
+      state: $state
+      street_address: $street_address
+      city: $city
+      user_id: $user_id
+    }
+  ) {
+    address_id
+    city
+    locality
+    mobile
+    name
+    pincode
+    state
+    street_address
+    user_id
+  }
+}

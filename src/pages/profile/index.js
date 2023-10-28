@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { parse } from 'cookie';
 import Layout from '@/components/Layout/Layout';
 import Profile from '@/components/Profile/Profile';
-import Address from '@/components/Profile/Address';
+import Address from '@/components/Profile/Address/Address';
 import { verifyToken } from '../api/authMiddleware';
 import { useRouter } from 'next/router';
 

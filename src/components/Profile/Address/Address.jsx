@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Checkbox,
-  Label,
-  Modal,
-  Radio,
-  TextInput,
-} from 'flowbite-react';
+import { Button, Label, Modal, Radio, TextInput } from 'flowbite-react';
 import client from '../../../../apollo';
 import CREATE_ADDRESS_MUTATION from './UserAddressMutation.gql';
-import { gql, useMutation } from '@apollo/client';
+import GET_ADDRESS_QUERY from './UserAddressQuery.gql';
+import { gql, useQuery } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
@@ -20,26 +14,16 @@ const Index = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
-  // const [mutateFunction, { data, loading, error }] = useMutation(
-  //   CREATE_ADDRESS_MUTATION,
-  //   {
-  //     variables: {
-  //       city: 'baddi',
-  //       locality: 'abott',
-  //       mobile: '8894668683',
-  //       name: 'sahil',
-  //       pincode: '173205',
-  //       state: 'himachal',
-  //       street_address: 'chandel colony',
-  //     },
-  //   }
-  // );
+  const { data, loading, error } = useQuery(GET_ADDRESS_QUERY, {
+    variables: { userId: user.id },
+  });
 
-  // console.log('loading', loading);
-  // console.log('error', error);
-  // console.log('data', data);
+  console.log('loading', loading);
+  console.log('error', error);
+  console.log('data', data);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -92,6 +76,8 @@ const Index = () => {
       });
 
       console.log('userResult', userResult);
+      setOpenModal(undefined);
+      reset(); // resets form inputs
     } catch (err) {
       console.log('error while creating address', err);
     }

@@ -30,7 +30,6 @@ const ProductDetail = () => {
 
   const { loading, error, data } = useQuery(GET_POST_QUERY, {
     variables: {
-      // productId: parseInt(2),
       productId: parseInt(router.query.id),
     },
   });

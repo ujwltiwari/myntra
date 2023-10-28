@@ -1,0 +1,13 @@
+query GetAddress($userId: uuid!) {
+  addresses(where: { user_id: { _eq: $userId } }) {
+    address_id
+    city
+    locality
+    mobile
+    name
+    pincode
+    state
+    street_address
+    user_id
+  }
+}

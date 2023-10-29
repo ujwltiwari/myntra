@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 const Index = () => {
   const { user } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState('');
+  const [addresses, setAddresses] = useState(null);
   const {
     register,
     handleSubmit,
@@ -17,13 +18,20 @@ const Index = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { data, loading, error } = useQuery(GET_ADDRESS_QUERY, {
+  const { data, loading, error, refetch } = useQuery(GET_ADDRESS_QUERY, {
     variables: { userId: user.id },
   });
 
   console.log('loading', loading);
   console.log('error', error);
   console.log('data', data);
+  console.log('addresses', addresses);
+
+  useEffect(() => {
+    if (data) {
+      setAddresses([...data.addresses]);
+    }
+  }, [data]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -78,6 +86,8 @@ const Index = () => {
       console.log('userResult', userResult);
       setOpenModal(undefined);
       reset(); // resets form inputs
+      refetch(); // refetches the graphql data
+      setAddresses([...data.addresses]);
     } catch (err) {
       console.log('error while creating address', err);
     }
@@ -98,7 +108,36 @@ const Index = () => {
       </div>
       {/* Single Address */}
       <p className='text-[12px] font-semibold uppercase'>Default Address</p>
+      {addresses?.map((address, idx) => (
+        <div key={idx} className='address-accordion mb-12'>
+          <div className='p-[14px]'>
+            <div className='flex justify-between'>
+              <p className='text-[13px] font-semibold'>{address.name}</p>
+              <p className='address-type font-light'>Home</p>
+            </div>
+            <div className='text-[12px] text-[#696e79] mt-2'>
+              <p>{address.street_address}</p>
+              <p>{address.locality}</p>
+              <p>
+                {address.city} - {address.pincode}
+              </p>
+              <p>{address.state}</p>
 
+              <p className='mt-2'>Mobile: {address.mobile}</p>
+            </div>
+          </div>
+          <hr class='h-px mt-4 bg-gray-200 border-0 dark:bg-gray-700' />
+          <div className='flex gap-1'>
+            <button className='w-full h-[44px] font-semibold text-[13px] text-[#526cd0] uppercase'>
+              Edit
+            </button>
+            <button className='w-full font-semibold text-[13px] text-[#526cd0] uppercase'>
+              Remove
+            </button>
+          </div>
+        </div>
+        // </div>
+      ))}
       {/* Single Address */}
 
       {/* Add Address Modal */}

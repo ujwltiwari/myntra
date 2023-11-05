@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Label, Modal, Radio, TextInput } from 'flowbite-react';
-import client from '../../../../apollo';
-import CREATE_ADDRESS_MUTATION from './UserAddressMutation.gql';
-import GET_ADDRESS_QUERY from './UserAddressQuery.gql';
-import { gql, useQuery } from '@apollo/client';
-import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { Button, Label, Modal, Radio, TextInput } from 'flowbite-react'
+import client from '../../../../apollo'
+import CREATE_ADDRESS_MUTATION from './UserAddressMutation.gql'
+import GET_ADDRESS_QUERY from './UserAddressQuery.gql'
+import { gql, useQuery } from '@apollo/client'
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 
 const Index = () => {
-  const { user } = useSelector((state) => state.user);
-  const [openModal, setOpenModal] = useState('');
-  const [addresses, setAddresses] = useState(null);
+  const { user } = useSelector((state) => state.user)
+  const [openModal, setOpenModal] = useState('')
+  const [addresses, setAddresses] = useState(null)
   const {
     register,
     handleSubmit,
     watch,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm()
   const { data, loading, error, refetch } = useQuery(GET_ADDRESS_QUERY, {
     variables: { userId: user.id },
-  });
+  })
 
-  console.log('loading', loading);
-  console.log('error', error);
-  console.log('data', data);
-  console.log('addresses', addresses);
+  console.log('loading', loading)
+  console.log('error', error)
+  console.log('data', data)
+  console.log('addresses', addresses)
 
   useEffect(() => {
     if (data) {
-      setAddresses([...data.addresses]);
+      setAddresses([...data.addresses])
     }
-  }, [data]);
+  }, [data])
 
   const onSubmit = (data) => {
-    console.log(data);
-  }; // your form submit function which will invoke after successful validation
+    console.log(data)
+  } // your form submit function which will invoke after successful validation
 
   const handleAddressCreation = async (data) => {
-    console.log('handleAddressCreation called');
+    console.log('handleAddressCreation called')
     const { name, mobile, pincode, state, street_address, locality, city } =
-      data;
+      data
 
     try {
       const result = await client.mutate({
@@ -55,13 +55,13 @@ const Index = () => {
           street_address,
           user_id: user.id,
         },
-      });
-      console.log('result', result);
+      })
+      console.log('result', result)
       const {
         data: { insert_addresses_one },
-      } = result;
+      } = result
 
-      console.log('address created', insert_addresses_one);
+      console.log('address created', insert_addresses_one)
 
       const UPDATE_USER_ADDRESS_MUTATION = gql`
         mutation UpdateUserAddress($userId: uuid!, $newAddress: jsonb!) {
@@ -73,7 +73,7 @@ const Index = () => {
             addresses
           }
         }
-      `;
+      `
 
       const userResult = await client.mutate({
         mutation: UPDATE_USER_ADDRESS_MUTATION,
@@ -81,17 +81,17 @@ const Index = () => {
           userId: user.id,
           newAddress: insert_addresses_one.address_id,
         },
-      });
+      })
 
-      console.log('userResult', userResult);
-      setOpenModal(undefined);
-      reset(); // resets form inputs
-      refetch(); // refetches the graphql data
-      setAddresses([...data.addresses]);
+      console.log('userResult', userResult)
+      setOpenModal(undefined)
+      reset() // resets form inputs
+      refetch() // refetches the graphql data
+      setAddresses([...data.addresses])
     } catch (err) {
-      console.log('error while creating address', err);
+      console.log('error while creating address', err)
     }
-  };
+  }
 
   return (
     <div className='max-w-screen-md	w-[640px] mt-2 mx-4 my-3'>
@@ -266,7 +266,7 @@ const Index = () => {
       </Modal>
       {/* Add Address Modal */}
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

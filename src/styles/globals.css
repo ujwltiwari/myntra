@@ -133,3 +133,8 @@
   padding: 3px;
   color: #696e79;
 }
+
+.active-checkout-page {
+  color: #20BD99;
+  border-bottom: 2px solid #20BD99;
+}

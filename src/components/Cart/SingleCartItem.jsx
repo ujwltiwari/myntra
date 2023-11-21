@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import React from 'react';
-import Cross from '../../../public/icons/Cross';
-import DownArrow from '../../../public/icons/DownArrow';
-import Returns from '../../../public/icons/Returns';
-import NotSelected from '../../../public/icons/NotSelected';
-import Selected from '../../../public/icons/Selected';
-import Link from 'next/link';
+import { useEffect, useState } from 'react'
+import React from 'react'
+import Cross from '../../../public/icons/Cross'
+import DownArrow from '../../../public/icons/DownArrow'
+import Returns from '../../../public/icons/Returns'
+import NotSelected from '../../../public/icons/NotSelected'
+import Selected from '../../../public/icons/Selected'
+import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { DeSelectCartItems, selectCartItems } from '@/redux/actions/cartActions'
 
 const SingleCartItem = ({
   product,
@@ -13,8 +15,19 @@ const SingleCartItem = ({
   handleSelected,
   handleItemDelete,
 }) => {
-  const image = product.image;
-  // console.log('singlecartitem', product);
+  const image = product.image
+  const dispatch = useDispatch()
+
+  const handleSelection = () => {
+    // Toggle selection of items in cart
+    if (isSelected) {
+      console.log('selectedFor de-selection')
+      dispatch(DeSelectCartItems(product))
+    } else {
+      console.log('selectedFor selection')
+      dispatch(selectCartItems(product))
+    }
+  }
 
   return (
     <div className='flex gap-3 border border-bg-[#eaeaec] p-4 my-2'>
@@ -24,11 +37,11 @@ const SingleCartItem = ({
         style={{ backgroundImage: `url(${image})` }}
       >
         {isSelected ? (
-          <div onClick={handleSelected}>
+          <div onClick={handleSelection}>
             <Selected />
           </div>
         ) : (
-          <div onClick={handleSelected}>
+          <div onClick={handleSelection}>
             <NotSelected />
           </div>
         )}
@@ -63,7 +76,7 @@ const SingleCartItem = ({
             ₹{product?.price}
           </p>
           <p className='text-[13px] text-[#f16565]'>
-            ({product?.discount * 100}% OFF)
+            ({product?.discount}% OFF)
           </p>
         </div>
         {/* Pricing Information */}
@@ -77,7 +90,7 @@ const SingleCartItem = ({
         <Cross />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SingleCartItem;
+export default SingleCartItem

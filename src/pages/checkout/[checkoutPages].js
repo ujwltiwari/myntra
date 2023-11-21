@@ -8,10 +8,14 @@ import Address from '@/components/Profile/Address/Address'
 import { verifyToken } from '../api/authMiddleware'
 import { useRouter } from 'next/router'
 import Sidebar from '@/components/Profile/Sidebar'
+import Cart from '@/components/Cart/Cart'
+import Payment from '@/components/Cart/Payment'
+import CartNavbar from '@/components/Layout/Navbar/CartNavbar'
 
-const ProfilePages = () => {
+const CheckoutPages = () => {
+  const { cart } = useSelector((state) => state.cart)
   const router = useRouter()
-  const routeName = router.query.profilePages
+  const routeName = router.query.checkoutPages
   const user = useSelector((state) => state.user.user)
 
   const handleDelete = () => {
@@ -22,35 +26,41 @@ const ProfilePages = () => {
 
   const pageType = [
     {
-      name: 'profile',
-      component: <Profile />,
+      name: 'cart',
+      component: <Cart />,
     },
     {
-      name: 'addresses',
-      component: <Address />,
+      name: 'address',
+      component: <Address route={'checkout'} />,
+    },
+    {
+      name: 'payment',
+      component: <Payment cart={cart} />,
     },
   ]
 
-  console.log('router', routeName == routeName[1].name)
-
   return (
-    <Layout>
-      <div className='w-[70%] m-auto border-b-[1px] border-gray-300 pb-2'>
-        <p className='font-semibold'>Account</p>
-        <p className='text-[12px]'>{user?.name}</p>
+    <>
+      <CartNavbar activeTab={routeName} />
+      <div className={routeName === 'address' ? 'flex justify-center' : null}>
+        <div className={routeName === 'address' ? 'w-[65%]' : null}>
+          {pageType.map((page, idx) => {
+            return (
+              <div key={idx}>{routeName === page.name && page.component}</div>
+            )
+          })}
+        </div>
+        {routeName === 'address' && (
+          <div className='w-[30%] mt-12'>
+            <Payment cart={cart} route={routeName} />
+          </div>
+        )}
       </div>
-      <div className='flex w-[70%] m-auto'>
-        <Sidebar />
-
-        {pageType.map((page) => {
-          return routeName === page.name && page.component
-        })}
-      </div>
-    </Layout>
+    </>
   )
 }
 
-export default ProfilePages
+export default CheckoutPages
 
 export async function getServerSideProps(context) {
   try {

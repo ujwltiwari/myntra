@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Address from './Address';
-import Offers from './Offers';
-import SingleCartItem from './SingleCartItem';
-import NotSelected from '../../../public/icons/NotSelected';
-import Selected from '../../../public/icons/Selected';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Address from './Address'
+import Offers from './Offers'
+import SingleCartItem from './SingleCartItem'
+import NotSelected from '../../../public/icons/NotSelected'
+import Selected from '../../../public/icons/Selected'
 import {
+  ClearCart,
+  ClearSelectedCartItems,
   DeleteFromCart,
   DeleteSelectedFromCart,
-} from '@/redux/actions/cartActions';
-import { IoCartSharp } from 'react-icons/io5';
-import { toast, Toaster } from 'react-hot-toast';
-import EmptyCart from './EmptyCart';
-import { AddSelectedToWishlist } from '@/redux/actions/wishlistActions';
+  selectAllCartItems,
+} from '@/redux/actions/cartActions'
+import { IoCartSharp } from 'react-icons/io5'
+import { toast, Toaster } from 'react-hot-toast'
+import EmptyCart from './EmptyCart'
+import { AddSelectedToWishlist } from '@/redux/actions/wishlistActions'
+import Payment from './Payment'
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
-  const { wishlist } = useSelector((state) => state.wishlist);
-  // console.log('cart', cart);
-  const [selectedItemIds, setSelectedItemIds] = useState([]); // Initialize selected item IDs as an array
-  console.log('selectedItemIds', selectedItemIds);
+  const dispatch = useDispatch()
+  const { cart } = useSelector((state) => state.cart)
+  const { wishlist } = useSelector((state) => state.wishlist)
+  const { selectedCartItems } = useSelector((state) => state.cart)
   const toastify = (message, type) => {
-    console.log('toastify called');
+    console.log('toastify called')
     toast[type](message, {
       duration: 4000,
       style: {
@@ -30,64 +32,58 @@ const Cart = () => {
         marginTop: 50,
         width: '700px',
       },
-    });
-  };
+    })
+  }
 
-  const handleSelected = (itemId) => {
-    // Toggle the selection of the item
-    setSelectedItemIds((prevSelectedItems) => {
-      if (prevSelectedItems.includes(itemId)) {
-        // Item is already selected, so deselect it
-        return prevSelectedItems.filter((id) => id !== itemId);
-      } else {
-        //Item is not selected, so select it & push to selectedItemIds Array
-        return [...prevSelectedItems, itemId];
-      }
-    });
-  };
+  console.log('selectedCartItems', selectedCartItems)
+
+  const deleteCart_Selected = () => {
+    dispatch(ClearCart())
+    dispatch(ClearSelectedCartItems())
+  }
 
   const handleAllProductSelection = () => {
-    console.log('handleAllProductSelection called');
-    if (selectedItemIds.length !== cart.length) {
+    console.log('handleAllProductSelection called')
+    if (selectedCartItems.length !== cart.length) {
       // select all item
-      setSelectedItemIds(cart.map((x) => x.id));
+      // setSelectedItemIds(cart.map((x) => x.id))
+      dispatch(selectAllCartItems())
     } else {
       // de-select all the items
-      setSelectedItemIds([]);
+      // setSelectedItemIds([])
+      dispatch(ClearSelectedCartItems())
     }
-  };
+  }
 
   const handleItemDelete = (item) => {
-    console.log('handleItemDelete called');
-    dispatch(DeleteFromCart(item.id));
-    toastify(`${item.name.slice(0, 15 || 5)}... Deleted from Cart`, 'error');
-  };
+    console.log('handleItemDelete called')
+    dispatch(DeleteFromCart(item.id))
+    toastify(`${item.name.slice(0, 15 || 5)}... Deleted from Cart`, 'error')
+  }
 
   const handleSelectedItemDelete = () => {
     // Remove selected items for cart -> filtering elements which selectedItemIds doesn't includes
     const filteredCart = cart.filter(
       (item) => !selectedItemIds.includes(item.id)
-    );
+    )
 
     // dispatch -> updated / filtered cart items to cart reducer
-    dispatch(DeleteSelectedFromCart(filteredCart));
-    toastify('Selected Items Deleted', 'error');
-  };
+    dispatch(DeleteSelectedFromCart(filteredCart))
+    toastify('Selected Items Deleted', 'error')
+  }
 
   const moveToWishlist = () => {
-    console.log('moveToWishlist called', selectedItemIds);
-    const itemsToMove = cart.filter((item) =>
-      selectedItemIds.includes(item.id)
-    );
-    dispatch(AddSelectedToWishlist(itemsToMove));
-    console.log('moveToWishlist wishlist', wishlist);
+    console.log('moveToWishlist called', selectedItemIds)
+    const itemsToMove = cart.filter((item) => selectedItemIds.includes(item.id))
+    dispatch(AddSelectedToWishlist(itemsToMove))
+    console.log('moveToWishlist wishlist', wishlist)
 
     // delete moved items from cart
     const filteredCart = cart.filter(
       (item) => !selectedItemIds.includes(item.id)
-    );
-    dispatch(DeleteSelectedFromCart(filteredCart));
-  };
+    )
+    dispatch(DeleteSelectedFromCart(filteredCart))
+  }
 
   return (
     <>
@@ -99,10 +95,16 @@ const Cart = () => {
             <div className='w-full p-4 md:p-0 md:w-[60%] lg:w-[600px]'>
               <Address />
               <Offers />
+              <button
+                className='bg-teal-500 text-gray-50 p-2 my-5'
+                onClick={deleteCart_Selected}
+              >
+                Delete Cart & Selected Item
+              </button>
               <div className='flex justify-between items-center gap-4 p-4 my-2'>
                 <div className='flex gap-4 items-center'>
                   {/* Show Icons According to Product Selection */}
-                  {cart.length === selectedItemIds.length ? (
+                  {cart.length === selectedCartItems.length ? (
                     <div
                       className='mr-4 -mt-4'
                       onClick={handleAllProductSelection}
@@ -111,10 +113,10 @@ const Cart = () => {
                     </div>
                   ) : (
                     <>
-                      {selectedItemIds.length > 0 ? (
+                      {selectedCartItems.length > 0 ? (
                         <div
                           className='bulkActionStrip-selectionIcon w-[16px] fill-myntraPink cursor-pointer'
-                          onClick={() => setSelectedItemIds([])}
+                          onClick={() => dispatch(ClearSelectedCartItems())}
                         >
                           <svg
                             width='16px'
@@ -143,7 +145,7 @@ const Cart = () => {
                   )}
                   {/* Show Icons According to Product Selection */}
                   <p className='text-[14px] font-bold uppercase'>
-                    {selectedItemIds.length} / {cart.length} Items Selected
+                    {selectedCartItems.length} / {cart.length} Items Selected
                   </p>
                 </div>
                 <div className='flex gap-4 text-[11px] text-gray-600 font-bold'>
@@ -154,9 +156,9 @@ const Cart = () => {
                     Remove
                   </button>
                   <span className='h-[30px] w-[1px] bg-gray-300'></span>
-                  <button className='uppercase' onClick={moveToWishlist}>
+                  {/* <button className='uppercase' onClick={moveToWishlist}>
                     Move to Wishlist
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -164,8 +166,10 @@ const Cart = () => {
                 <SingleCartItem
                   key={idx}
                   product={item}
-                  isSelected={selectedItemIds.includes(item.id)}
-                  handleSelected={() => handleSelected(item.id)}
+                  isSelected={selectedCartItems.some(
+                    (selectedItem) => selectedItem.id == item.id
+                  )}
+                  handleSelected={() => handleSelected(item)}
                   handleItemDelete={() => handleItemDelete(item)}
                 />
               ))}
@@ -174,7 +178,8 @@ const Cart = () => {
             <span className='h-full w-[1px] bg-[#eaeaec] ml-1'></span>
             {/* right side */}
             <div className='lg:w-[300px]'>
-              <h1 className='text-[25px] font-semibold'>Right Side</h1>
+              {/* <h1 className='text-[25px] font-semibold'>Right Side</h1>  */}
+              <Payment cart={cart} />
             </div>
             {/* right side */}
           </div>
@@ -183,7 +188,7 @@ const Cart = () => {
         <EmptyCart />
       )}
     </>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

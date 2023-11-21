@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import SearchBar from '@/components/SearchBar/SearchBar';
-import { HiArrowSmallLeft } from 'react-icons/hi2';
-import { IoSearchOutline } from 'react-icons/io5';
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import SearchBar from '@/components/SearchBar/SearchBar'
+import { HiArrowSmallLeft } from 'react-icons/hi2'
+import { IoSearchOutline } from 'react-icons/io5'
 
-const CartNavbar = () => {
+const CartNavbar = ({ activeTab }) => {
   const MenuItems = [
     {
       name: 'Men',
@@ -31,7 +31,7 @@ const CartNavbar = () => {
       name: 'Studio',
       link: '/shop',
     },
-  ];
+  ]
 
   const ProfileItems = [
     {
@@ -90,7 +90,7 @@ const CartNavbar = () => {
         </svg>
       ),
     },
-  ];
+  ]
 
   const MobileItems = [
     {
@@ -154,7 +154,13 @@ const CartNavbar = () => {
         </svg>
       ),
     },
-  ];
+  ]
+  const topTrackingItems = [
+    { name: 'cart', label: 'Bag' },
+    { name: 'address', label: 'Address' },
+    { name: 'payment', label: 'Payment' },
+  ]
+
   return (
     <nav className='bg-white border-gray-100 dark:bg-gray-900 dark:border-gray-700 border-b-[1px] p-5 flex gap-2 justify-between'>
       <Link href={'/'}>
@@ -168,35 +174,33 @@ const CartNavbar = () => {
       </Link>
       {/* Menu Items */}
       <ul className='hidden gap-6 items-center sm:flex'>
-        <li className='tracking-widest text-[#20BD99] text-[12px] uppercase font-semibold border-b-2 border-[#20BD99] '>
-          Bag
-        </li>
-        <li
-          className='h-[4px] w-[50px]'
-          style={{
-            display: 'inline-block',
-            borderTop: '1px dashed #696B79',
-            height: '4px',
-            width: '50px',
-            maxWidth: '200px',
-          }}
-        />
-        <li className='tracking-widest text-gray-600 text-[12px] uppercase font-semibold '>
-          Address
-        </li>
-        <li
-          className='h-[4px] w-[50px]'
-          style={{
-            display: 'inline-block',
-            borderTop: '1px dashed #696B79',
-            height: '4px',
-            width: '50px',
-            maxWidth: '200px',
-          }}
-        />
-        <li className='tracking-widest text-gray-600 text-[12px] uppercase font-semibold'>
-          Payment
-        </li>
+        {topTrackingItems.map((item, idx) => {
+          return (
+            <>
+              <li
+                key={idx}
+                className={`${
+                  activeTab === item.name && 'active-checkout-page '
+                }tracking-widest text-[12px] uppercase font-semibold`}
+              >
+                {item.label}
+              </li>
+
+              {idx < topTrackingItems.length - 1 ? (
+                <li
+                  className='h-[4px] w-[50px]'
+                  style={{
+                    display: 'inline-block',
+                    borderTop: '1px dashed #696B79',
+                    height: '4px',
+                    width: '50px',
+                    maxWidth: '200px',
+                  }}
+                />
+              ) : null}
+            </>
+          )
+        })}
       </ul>
       {/* Menu Items */}
 
@@ -212,7 +216,7 @@ const CartNavbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default CartNavbar;
+export default CartNavbar

@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useReducer } from 'react';
-import SearchBar from '@/components/SearchBar/SearchBar';
-import { HiArrowSmallLeft } from 'react-icons/hi2';
-import { IoSearchOutline } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useReducer } from 'react'
+import SearchBar from '@/components/SearchBar/SearchBar'
+import { HiArrowSmallLeft } from 'react-icons/hi2'
+import { IoSearchOutline } from 'react-icons/io5'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
-  const { cart } = useSelector((state) => state.cart);
-  const { wishlist } = useSelector((state) => state.wishlist);
+  const { cart } = useSelector((state) => state.cart)
+  const { wishlist } = useSelector((state) => state.wishlist)
   const MenuItems = [
     {
       name: 'Men',
@@ -34,7 +34,7 @@ const Navbar = () => {
       name: 'Studio',
       link: '/shop',
     },
-  ];
+  ]
 
   const ProfileItems = [
     {
@@ -76,7 +76,7 @@ const Navbar = () => {
     },
     {
       name: 'Bag',
-      link: '/cart',
+      link: '/checkout/cart',
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -93,7 +93,7 @@ const Navbar = () => {
         </svg>
       ),
     },
-  ];
+  ]
 
   const MobileItems = [
     {
@@ -157,7 +157,7 @@ const Navbar = () => {
         </svg>
       ),
     },
-  ];
+  ]
   return (
     <nav className='bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-lg p-5 flex gap-2 justify-between'>
       <div className='flex items-center gap-2 md:gap-6'>
@@ -238,7 +238,7 @@ const Navbar = () => {
       </ul>
       {/* Mobile Icons */}
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

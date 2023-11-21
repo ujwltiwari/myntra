@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const RightArrow = () => {
   return (
@@ -12,12 +12,12 @@ const RightArrow = () => {
         fill='none'
         stroke='#ff3e6c'
         strokeLinecap='round'
-        stroke-linejoin='round'
+        strokeLinejoin='round'
         strokeWidth='4'
         d='m19 12l12 12l-12 12'
       />
     </svg>
-  );
-};
+  )
+}
 
-export default RightArrow;
+export default RightArrow

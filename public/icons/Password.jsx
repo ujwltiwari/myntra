@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Password = () => {
   return (
@@ -20,13 +20,13 @@ const Password = () => {
         />
         <path
           strokeLinecap='round'
-          stroke-linejoin='round'
+          strokeLinejoin='round'
           strokeWidth='2'
           d='M8 16h.009m3.982 0H12m3.991 0H16'
         />
       </g>
     </svg>
-  );
-};
+  )
+}
 
-export default Password;
+export default Password

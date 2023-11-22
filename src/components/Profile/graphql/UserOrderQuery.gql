@@ -1,0 +1,11 @@
+query UserOrderQuery($userId: uuid!) {
+  orders(where: { user: { _eq: $userId } }) {
+    id
+    totalPayment
+    discount
+    paymentId
+    productsId
+    status
+    createdAt
+  }
+}

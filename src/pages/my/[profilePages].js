@@ -8,6 +8,7 @@ import Address from '@/components/Profile/Address/Address'
 import { verifyToken } from '../api/authMiddleware'
 import { useRouter } from 'next/router'
 import Sidebar from '@/components/Profile/Sidebar'
+import Orders from '@/components/Profile/Orders/Orders'
 
 const ProfilePages = () => {
   const router = useRouter()
@@ -28,6 +29,10 @@ const ProfilePages = () => {
     {
       name: 'addresses',
       component: <Address />,
+    },
+    {
+      name: 'orders',
+      component: <Orders user={user} />,
     },
   ]
 

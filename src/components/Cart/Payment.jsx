@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
+import { ddyymm } from '@/utils/dateFormat'
 const Payment = () => {
   const { selectedCartItems } = useSelector((state) => state.cart)
   const router = useRouter()
@@ -71,7 +72,9 @@ const Payment = () => {
             {routeName === 'address' ? 'Continue' : 'Place Order'}
           </button>
         )}
-        {routeName == 'payment' && <RazorPayBtn total={total} />}
+        {routeName == 'payment' && (
+          <RazorPayBtn total={total} discountTotal={discountTotal} />
+        )}
       </ul>
     </div>
   )
@@ -91,7 +94,7 @@ export const ItemCard = ({ item }) => {
         <p className='text-[14px] flex flex-col gap-1'>
           <span>Delivery Between</span>
           <span className='text-[13px] text-gray-500'>
-            {`${day}-${month}-${year}`} - {`${day + 7}-${month}-${year}`}
+            {ddyymm(new Date())} - {ddyymm(new Date(), 7)}
           </span>
         </p>
       </div>

@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import { toast, Toaster } from 'react-hot-toast'
-
+import client from '../../../apollo'
+import SINGLE_ORDER_MUTATION from './graphql/SingleOrderMutation.gql'
+import { useSelector } from 'react-redux'
 const loadScript = (src) => {
   return new Promise((resolve) => {
     const script = document.createElement('script')
@@ -15,9 +17,10 @@ const loadScript = (src) => {
   })
 }
 
-const RazorPayBtn = ({ total }) => {
+const RazorPayBtn = ({ total, discountTotal }) => {
   const router = useRouter()
-
+  const { selectedCartItems } = useSelector((state) => state.cart)
+  const { user } = useSelector((state) => state.user)
   const toastify = (message, type) => {
     console.log('toastify called')
     toast[type](message, {
@@ -95,13 +98,49 @@ const RazorPayBtn = ({ total }) => {
          * if verify == true -> then save payment details to db
          */
         if (verify) {
+          const orderId = res.razorpay_order_id
+          const paymentId = res.razorpay_payment_id
           toastify('Order Successfully Placed', 'success')
+          const productsId = selectedCartItems.map((x) => x.id)
+          await OrderInsertionToDB(
+            orderId,
+            paymentId,
+            discountTotal,
+            total,
+            productsId
+          )
           router.push('/checkout/confirmation')
         }
       },
     }
     const paymentObject = new window.Razorpay(options)
     paymentObject.open()
+  }
+
+  const OrderInsertionToDB = async (
+    orderId,
+    paymentId,
+    discount,
+    totalPayment,
+    productsId
+  ) => {
+    try {
+      const result = await client.mutate({
+        mutation: SINGLE_ORDER_MUTATION,
+        variables: {
+          orderId,
+          paymentId,
+          discount,
+          totalPayment,
+          productsId,
+          userId: user.id,
+        },
+      })
+
+      console.log('result', result)
+    } catch (err) {
+      console.log('error while inserting order details to db', err)
+    }
   }
 
   return (

@@ -10,7 +10,7 @@ const NotSelectedRadio = () => {
       class='addressBlocks-base-radioIcon'
     >
       <path
-        fill-rule='evenodd'
+        fillRule='evenodd'
         d='M8 14.933A6.941 6.941 0 0 1 1.067 8 6.941 6.941 0 0 1 8 1.067 6.941 6.941 0 0 1 14.933 8 6.941 6.941 0 0 1 8 14.933M8 0C3.589 0 0 3.589 0 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8'
       ></path>
     </svg>

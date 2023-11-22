@@ -1,0 +1,9 @@
+query OrderedProductsQuery($productsIds: [Int]) {
+  products(where: { id: { _in: $productsIds } }) {
+    id
+    name
+    image
+    brand
+    sizes
+  }
+}

@@ -1,22 +1,22 @@
-import Login from '@/components/Auth/Login/Login';
-import Navbar from '@/components/Layout/Navbar/Navbar';
-import { fetchUserDetails } from '@/redux/actions/userActions';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { verifyToken } from '../pages/api/authMiddleware'; // Import your verifyToken function here
-import { parse } from 'cookie';
-import { Toaster } from 'react-hot-toast';
-import { toast } from 'react-hot-toast';
+import Login from '@/components/Auth/Login/Login'
+import Navbar from '@/components/Layout/Navbar/Navbar'
+import { fetchUserDetails } from '@/redux/actions/userActions'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { verifyToken } from '../pages/api/authMiddleware' // Import your verifyToken function here
+import { parse } from 'cookie'
+import { Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 function Register({ fetchUserDetails, userDetails, user }) {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  console.log('userDetails', userDetails);
-  console.log('user', user);
+  console.log('userDetails', userDetails)
+  console.log('user', user)
 
   const toastify = (message, type) => {
     if (type === 'error') {
@@ -27,7 +27,7 @@ function Register({ fetchUserDetails, userDetails, user }) {
           color: '#fff',
           marginTop: 50,
         },
-      });
+      })
     } else {
       toast(message, {
         icon: '👏',
@@ -37,21 +37,21 @@ function Register({ fetchUserDetails, userDetails, user }) {
           color: '#fff',
           marginTop: 50,
         },
-      });
+      })
     }
-  };
+  }
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.push('/')
     }
-  }, [user, router]);
+  }, [user, router])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      setLoading(true);
+      setLoading(true)
       const response = await fetch('/api/auth', {
         method: 'POST',
         headers: {
@@ -62,29 +62,29 @@ function Register({ fetchUserDetails, userDetails, user }) {
           email,
           password,
         }),
-      });
+      })
 
       if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        console.log('Registration successful:', data);
-        fetchUserDetails(data.uid);
+        const data = await response.json()
+        localStorage.setItem('token', data.token)
+        console.log('Registration successful:', data)
+        fetchUserDetails(data.uid)
         // Redirect or show a success message
-        router.push('/my/profile');
-        setLoading(false);
-        toastify('Successfully Logged In', 'success');
+        router.push('/my/profile')
+        setLoading(false)
+        toastify('Successfully Logged In', 'success')
       } else {
-        const data = await response.json();
+        const data = await response.json()
         // Handle registration error, e.g., show an error message
-        console.error('Registration failed:', data.message);
-        toastify(data.message, 'error');
-        setLoading(false);
+        console.error('Registration failed:', data.message)
+        toastify(data.message, 'error')
+        setLoading(false)
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
       // Handle network or other errors
     }
-  };
+  }
 
   return (
     <>
@@ -98,34 +98,34 @@ function Register({ fetchUserDetails, userDetails, user }) {
         loading={loading}
       />
     </>
-  );
+  )
 }
 
 const mapStateToProps = (state) => ({
   userDetails: state.user, // Assuming your user details are stored in the "user" slice of the Redux store
-});
+})
 
 const mapDispatchToProps = {
   fetchUserDetails,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
 
 export async function getServerSideProps(context) {
   try {
     // Parse the authToken from cookies
-    const cookies = parse(context.req.headers.cookie || '');
-    const authToken = cookies.authToken || null;
+    const cookies = parse(context.req.headers.cookie || '')
+    const authToken = cookies.authToken || null
 
     // Validate the authToken
-    const user = await verifyToken(authToken);
+    const user = await verifyToken(authToken)
 
     // Check if the user is not authenticated
     if (!user) {
       // Now, you have the user object available in the props
       return {
         props: { user: null }, // You can also omit the 'user' prop if you prefer
-      };
+      }
     }
 
     // If user is authenticated, redirect
@@ -134,8 +134,8 @@ export async function getServerSideProps(context) {
         destination: '/',
         permanent: false,
       },
-    };
+    }
   } catch (error) {
-    console.error('error', error);
+    console.error('error', error)
   }
 }

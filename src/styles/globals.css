@@ -138,3 +138,37 @@
   color: #20BD99;
   border-bottom: 2px solid #20BD99;
 }
+
+.CustomStatusIcon-status {
+  height: 20px;
+  width: 20px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.CustomStatusIcon-circleBackgroundIconWithStatus {
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: flex;
+  border-radius: 20px;
+}
+
+.CustomStatusIcon-statusIcon {
+  width: 14px;
+  height: 21px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  margin-top: 18px;
+  margin-left: -6px;
+}
+
+.svgImages-tick {
+  background: url(https://myntraweb.blob.core.windows.net/mymyntra/assets/img/tick.svg) no-repeat;
+}
+
+.svgImages-svg {
+  display: inline-block;
+}

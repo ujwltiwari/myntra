@@ -1,0 +1,24 @@
+mutation SingleOrderMutation(
+  $discount: numeric
+  $totalPayment: numeric
+  $orderId: String!
+  $paymentId: String
+  $productsId: jsonb
+  $userId: uuid
+) {
+  insert_orders_one(
+    object: {
+      discount: $discount
+      totalPayment: $totalPayment
+      id: $orderId
+      paymentId: $paymentId
+      productsId: $productsId
+      user: $userId
+    }
+  ) {
+    discount
+    id
+    paymentId
+    productsId
+  }
+}

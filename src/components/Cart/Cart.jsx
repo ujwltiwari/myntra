@@ -37,11 +37,6 @@ const Cart = () => {
 
   console.log('selectedCartItems', selectedCartItems)
 
-  const deleteCart_Selected = () => {
-    dispatch(ClearCart())
-    dispatch(ClearSelectedCartItems())
-  }
-
   const handleAllProductSelection = () => {
     console.log('handleAllProductSelection called')
     if (selectedCartItems.length !== cart.length) {
@@ -95,12 +90,6 @@ const Cart = () => {
             <div className='w-full p-4 md:p-0 md:w-[60%] lg:w-[600px]'>
               <Address />
               <Offers />
-              <button
-                className='bg-teal-500 text-gray-50 p-2 my-5'
-                onClick={deleteCart_Selected}
-              >
-                Delete Cart & Selected Item
-              </button>
               <div className='flex justify-between items-center gap-4 p-4 my-2'>
                 <div className='flex gap-4 items-center'>
                   {/* Show Icons According to Product Selection */}

@@ -1,11 +1,11 @@
-import { Button } from 'flowbite-react';
-import React, { useState } from 'react';
-import Mail from '../../../../public/icons/Mail';
-import Password from '../../../../public/icons/Password';
-import Image from 'next/image';
-import Name from '../../../../public/icons/Name';
-import Link from 'next/link';
-import Loader from '@/components/Loader/Loader';
+import { Button } from 'flowbite-react'
+import React, { useState } from 'react'
+import Mail from '../../../../public/icons/Mail'
+import Password from '../../../../public/icons/Password'
+import Image from 'next/image'
+import Name from '../../../../public/icons/Name'
+import Link from 'next/link'
+import Loader from '@/components/Loader/Loader'
 
 const Register = ({
   setEmail,
@@ -91,7 +91,7 @@ const Register = ({
               type='submit'
               className='mt-6 w-full uppercase bg-myntraPink rounded-sm'
             >
-              {loading ? <Loader size='md' /> : 'continue'}
+              {loading ? <Loader size='md' /> : 'Sign Up'}
             </Button>
           </form>
           <div className='mt-6 text-[12px]'>
@@ -109,7 +109,7 @@ const Register = ({
       </div>
       {/* Sign Offer Info */}
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

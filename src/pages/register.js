@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import RegisterComp from '@/components/Auth/Register/Register';
-import Navbar from '@/components/Layout/Navbar/Navbar';
-import { Toaster } from 'react-hot-toast';
-import { toast } from 'react-hot-toast';
+import { useState } from 'react'
+import RegisterComp from '@/components/Auth/Register/Register'
+import Navbar from '@/components/Layout/Navbar/Navbar'
+import { Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const toastify = (message = 'Your Account Has Been Created!') => {
     toast(message, {
@@ -20,14 +20,14 @@ const Register = () => {
         color: '#fff',
         marginTop: 50,
       },
-    });
-  };
+    })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      setLoading(true);
+      setLoading(true)
       const response = await fetch('/api/auth', {
         method: 'POST',
         headers: {
@@ -39,30 +39,33 @@ const Register = () => {
           password,
           name,
         }),
-      });
+      })
 
       if (response.ok) {
-        console.log('Registration successful', response);
-        const data = await response.json();
-        console.log('Registration successful:', data);
-        toastify();
-        setEmail('');
-        setPassword('');
-        setName('');
+        console.log('Registration successful', response)
+        const data = await response.json()
+        console.log('Registration successful:', data)
+        toastify()
+        setEmail('')
+        setPassword('')
+        setName('')
         // Redirect or show a success message
-        setLoading(false);
+        setLoading(false)
       } else {
-        const data = await response.json();
-        console.error('Registration failed:', data.message);
-        toastify(data.message);
-        setLoading(false);
+        const data = await response.json()
+        console.error('Registration failed:', data)
+        let msg = data.error.includes('Uniqueness violation')
+          ? 'Email Already Exists!'
+          : data.error
+        toastify(msg)
+        setLoading(false)
         // Handle registration error, e.g., show an error message
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
       // Handle network or other errors
     }
-  };
+  }
 
   return (
     <div>
@@ -76,7 +79,7 @@ const Register = () => {
         loading={loading}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

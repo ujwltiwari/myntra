@@ -9,6 +9,7 @@ const Orders = ({ user }) => {
       userId: user.id,
     },
   })
+  // console.log('orders', error)
   return (
     <>
       {loading ? (

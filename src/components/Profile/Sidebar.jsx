@@ -1,8 +1,16 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from 'next/link'
+import React from 'react'
 
 const Sidebar = () => {
   const profileMenu = [
+    {
+      subMenu: [
+        {
+          name: 'Overview',
+          link: '/overview',
+        },
+      ],
+    },
     {
       title: 'Orders',
       subMenu: [
@@ -54,13 +62,15 @@ const Sidebar = () => {
         },
       ],
     },
-  ];
+  ]
   return (
     <div className='border-r-[1px] border-gray-300 pr-4'>
       {profileMenu.map((menu, idx) => {
         return (
           <div key={idx}>
-            <hr className='h-px my-6 bg-gray-300 border-0 dark:bg-gray-700'></hr>
+            {idx !== 0 && (
+              <hr className='h-px my-6 bg-gray-300 border-0 dark:bg-gray-700'></hr>
+            )}
             <p className='text-[11px] text-gray-400 uppercase mb-4 '>
               {menu.title}
             </p>
@@ -75,10 +85,10 @@ const Sidebar = () => {
               ))}
             </ul>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

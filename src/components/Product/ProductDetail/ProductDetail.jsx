@@ -1,45 +1,45 @@
 /* eslint-disable react/no-unescaped-entities */
-import DefaultBreadcrumb from '@/components/BreadCrumb/BreadCrumb';
-import React, { useEffect, useState } from 'react';
-import ProductGallery from './ProductGallery';
-import GET_POST_QUERY from './SingleProductQuery.gql';
-import { useQuery } from '@apollo/client';
-import Loader from '@/components/Loader/Loader';
-import ProductRating from '../ProductRating/ProductRating';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Tooltip } from 'flowbite-react';
-import Bag from '../../../../public/icons/Bag';
-import Heart from '../../../../public/icons/Heart';
-import RightArrow from '../../../../public/icons/RightArrow';
-import DeliveryVehicle from '../../../../public/icons/DeliveryVehicle';
-import ProductOffers from './ProductOffers';
-import Detail from '../../../../public/icons/Detail';
-import ProductReviews from './ProductReviews';
-import { AddToCart } from '@/redux/actions/cartActions';
-import { toast, Toaster } from 'react-hot-toast';
-import { IoCartSharp } from 'react-icons/io5';
-import { useRouter } from 'next/router';
-import { AddToWishlist } from '@/redux/actions/wishlistActions';
+import DefaultBreadcrumb from '@/components/BreadCrumb/BreadCrumb'
+import React, { useEffect, useState } from 'react'
+import ProductGallery from './ProductGallery'
+import GET_POST_QUERY from './SingleProductQuery.gql'
+import { useQuery } from '@apollo/client'
+import Loader from '@/components/Loader/Loader'
+import ProductRating from '../ProductRating/ProductRating'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, Tooltip } from 'flowbite-react'
+import Bag from '../../../../public/icons/Bag'
+import Heart from '../../../../public/icons/Heart'
+import RightArrow from '../../../../public/icons/RightArrow'
+import DeliveryVehicle from '../../../../public/icons/DeliveryVehicle'
+import ProductOffers from './ProductOffers'
+import Detail from '../../../../public/icons/Detail'
+import ProductReviews from './ProductReviews'
+import { AddToCart } from '@/redux/actions/cartActions'
+import { toast, Toaster } from 'react-hot-toast'
+import { IoCartSharp } from 'react-icons/io5'
+import { useRouter } from 'next/router'
+import { AddToWishlist } from '@/redux/actions/wishlistActions'
 
 const ProductDetail = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
-  const [id, setId] = useState('');
-  console.log('router', router);
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const sizes = ['S', 'M', 'L', 'XL', 'XXL']
+  const [id, setId] = useState('')
+  console.log('router', router)
 
   const { loading, error, data } = useQuery(GET_POST_QUERY, {
     variables: {
       productId: parseInt(router.query.id),
     },
-  });
+  })
 
-  console.log('error', error);
-  const [product, setProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
+  console.log('error', error)
+  const [product, setProduct] = useState(null)
+  const [selectedSize, setSelectedSize] = useState(null)
 
   const toastify = (message, type) => {
-    console.log('toastify called');
+    console.log('toastify called')
     toast[type](message, {
       icon: <IoCartSharp color='#FF3E6C' size={30} />,
       duration: 4000,
@@ -48,33 +48,33 @@ const ProductDetail = () => {
         marginTop: 50,
         width: '700px',
       },
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     if (!loading) {
-      setProduct(data.products[0]);
+      setProduct(data.products[0])
     }
-  }, [data, loading]);
+  }, [data, loading])
 
   const AddItemToCart = () => {
-    console.log('AddItemToCart called');
-    dispatch(AddToCart(product));
-    toastify(`${product.name.slice(0, 15 || 5)}... Added to Cart`, 'success');
-  };
+    console.log('AddItemToCart called')
+    dispatch(AddToCart(product))
+    toastify(`${product.name.slice(0, 15 || 5)}... Added to Cart`, 'success')
+  }
 
   const AddItemToWishlist = () => {
-    console.log('AddItemToWishlist called');
+    console.log('AddItemToWishlist called')
     try {
-      dispatch(AddToWishlist(product));
+      dispatch(AddToWishlist(product))
       toastify(
         `${product.name.slice(0, 15 || 5)}... Added to Wishlist`,
         'success'
-      );
+      )
     } catch (err) {
-      console.log('wishlist', err);
+      console.log('wishlist', err)
     }
-  };
+  }
 
   return (
     <div className='2xl:px-[150px]'>
@@ -331,7 +331,7 @@ const ProductDetail = () => {
       )}
       {/* Product Details */}
     </div>
-  );
-};
+  )
+}
 
-export default ProductDetail;
+export default ProductDetail

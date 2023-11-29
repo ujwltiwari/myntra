@@ -15,7 +15,7 @@ const SingleOrderCard = ({ order }) => {
       productsIds: order.productsId,
     },
   })
-  console.log('orderedProduct', data)
+  console.log('orderedProduct', error)
 
   useEffect(() => {
     if (!loading && data) {
@@ -51,8 +51,8 @@ const SingleOrderCard = ({ order }) => {
             </div>
           </div>
           {/* Status and Date */}
-          <div key={idx} className='bg-[#F5F5F5] mt-4 flex gap-2 flex-col'>
-            <div className='mx-4 my-3 flex gap-4'>
+          <div key={idx} className='bg-[#F5F5F5] mt-4 flex flex-col'>
+            <div className='px-4 py-3 flex gap-4 hover:bg-gray-200 cursor-pointer'>
               <Link href={`/product-detail/${order.id}`} target='_blank'>
                 <Image
                   className='cursor-pointer'
@@ -72,7 +72,7 @@ const SingleOrderCard = ({ order }) => {
             </div>
 
             <div className='emptySpace p-[1px] bg-white'></div>
-            <div className='mx-4 my-2 flex gap-4 items-center'>
+            <div className='px-4 py-3 flex gap-4 items-center'>
               <div className='w-[8px] h-[8px] bg-[#696E79] rounded-full'></div>
               <p className='text-[13px] text-gray-500'>
                 Exchange/Return window closed on {DateMonth(order.createdAt, 7)}
@@ -81,9 +81,9 @@ const SingleOrderCard = ({ order }) => {
 
             <div className='emptySpace p-[1px] bg-white'></div>
 
-            <div className='text-[14px] text-gray-500 my-3 mx-4 flex gap-4 items-center'>
-              <p className='mt-[-8px]'>Rate Product</p>
-              <Rating style={{ marginTop: -10 }} />
+            <div className='text-[14px] text-gray-500 py-3 px-4 flex gap-4 items-center'>
+              <p>Rate Product</p>
+              <Rating />
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ const Orders = ({ user }) => {
       userId: user.id,
     },
   })
-  // console.log('orders', error)
+  console.log('orders', data)
   return (
     <>
       {loading ? (
@@ -18,9 +18,13 @@ const Orders = ({ user }) => {
         </div>
       ) : (
         <div className='w-full p-4 bg-[#F5F5F5]'>
-          {data?.orders.map((order, idx) => (
-            <SingleOrderCard order={order} key={idx} />
-          ))}
+          {data.orders.length === 0 ? (
+            <p>No Orders</p>
+          ) : (
+            data?.orders.map((order, idx) => (
+              <SingleOrderCard order={order} key={idx} />
+            ))
+          )}
         </div>
       )}
     </>

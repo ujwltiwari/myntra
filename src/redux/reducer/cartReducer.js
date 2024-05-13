@@ -6,7 +6,7 @@ import {
   SELECT_CART_ITEMS,
   DESELECT_CART_ITEMS,
   CLEAR_SELECTED_CART_ITEMS,
-  SELECT_ALL_CART_ITEMS,
+  SELECT_ALL_CART_ITEMS, MOVE_TO_WISHLIST,
 } from '../actions/cartActions'
 
 const initialState = {
@@ -49,7 +49,7 @@ const cartReducer = (state = initialState, action) => {
       const itemToDelete = action.payload
       const newcart = state.cart.filter((item) => item.id !== itemToDelete)
       return {
-        ...state,
+        // ...state,
         cart: [...newcart],
       }
 
@@ -99,6 +99,19 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedCartItems: [],
+      }
+
+    case MOVE_TO_WISHLIST:
+      console.log("MOVE_TO_WISHLIST")
+      const selectedCartItems = action.payload
+      const itemsToMove = state.cart.filter((item) => selectedCartItems.includes(item.id))
+      const cartItems = state.cart.filter(item => !selectedCartItems.includes(item.id))
+      const updatedWishlist = state.wishlist.length > 0 ? [...state.wishlist] : state.wishlist
+
+      return {
+        ...state,
+        wishlist: [...updatedWishlist, ...itemsToMove],
+        cart: [...cartItems]
       }
 
     default:

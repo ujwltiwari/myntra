@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import RazorPayBtn from './RazorPayBtn'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -7,9 +7,11 @@ import Link from 'next/link'
 import { ddyymm } from '@/utils/dateFormat'
 const Payment = () => {
   const { selectedCartItems } = useSelector((state) => state.cart)
+  const [items, setItems] = useState([])
   const router = useRouter()
   const routeName = router.query.checkoutPages
   console.log('route', router)
+  console.log("selectedCartItems", selectedCartItems)
   const cartTotal = selectedCartItems.reduce((acc, curr) => {
     return acc + curr.price
   }, 0)
@@ -20,6 +22,10 @@ const Payment = () => {
   const discount = (cartTotal * discountTotal) / 100
   console.log('discount', discount)
   const total = cartTotal - discount
+
+  useEffect(() => {
+
+  }, [selectedCartItems]);
 
   return (
     <div

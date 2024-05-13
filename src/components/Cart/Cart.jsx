@@ -9,7 +9,7 @@ import {
   ClearCart,
   ClearSelectedCartItems,
   DeleteFromCart,
-  DeleteSelectedFromCart,
+  DeleteSelectedFromCart, MoveToWishlist,
   selectAllCartItems,
 } from '@/redux/actions/cartActions'
 import { IoCartSharp } from 'react-icons/io5'
@@ -17,12 +17,14 @@ import { toast, Toaster } from 'react-hot-toast'
 import EmptyCart from './EmptyCart'
 import { AddSelectedToWishlist } from '@/redux/actions/wishlistActions'
 import Payment from './Payment'
+import {useCartStore} from "@/zustand/Provider";
 
 const Cart = () => {
   const dispatch = useDispatch()
   const { cart } = useSelector((state) => state.cart)
   const { wishlist } = useSelector((state) => state.wishlist)
   const { selectedCartItems } = useSelector((state) => state.cart)
+  const { count, incrementCount } = useCartStore(state => state)
   const toastify = (message, type) => {
     console.log('toastify called')
     toast[type](message, {
@@ -34,6 +36,8 @@ const Cart = () => {
       },
     })
   }
+
+  console.log("count", count)
 
   console.log('selectedCartItems', selectedCartItems)
 
@@ -68,16 +72,19 @@ const Cart = () => {
   }
 
   const moveToWishlist = () => {
-    console.log('moveToWishlist called', selectedItemIds)
-    const itemsToMove = cart.filter((item) => selectedItemIds.includes(item.id))
-    dispatch(AddSelectedToWishlist(itemsToMove))
-    console.log('moveToWishlist wishlist', wishlist)
+    console.log('moveToWishlist called', selectedCartItems)
+    // const itemsToMove = cart.filter((item) => selectedCartItems.includes(item.id))
+    // dispatch(AddSelectedToWishlist(itemsToMove))
+    // console.log('moveToWishlist wishlist', itemsToMove)
+    //
+    // // delete moved items from cart
+    // const filteredCart = cart.filter(
+    //   (item) => !selectedCartItems.includes(item.id)
+    // )
+    // console.log('filteredCart', filteredCart)
+    // dispatch(DeleteSelectedFromCart(filteredCart))
 
-    // delete moved items from cart
-    const filteredCart = cart.filter(
-      (item) => !selectedItemIds.includes(item.id)
-    )
-    dispatch(DeleteSelectedFromCart(filteredCart))
+    dispatch(MoveToWishlist(selectedCartItems))
   }
 
   return (
@@ -145,9 +152,9 @@ const Cart = () => {
                     Remove
                   </button>
                   <span className='h-[30px] w-[1px] bg-gray-300'></span>
-                  {/* <button className='uppercase' onClick={moveToWishlist}>
+                  <button className='uppercase' onClick={moveToWishlist}>
                     Move to Wishlist
-                  </button> */}
+                  </button>
                 </div>
               </div>
 
@@ -155,9 +162,7 @@ const Cart = () => {
                 <SingleCartItem
                   key={idx}
                   product={item}
-                  isSelected={selectedCartItems.some(
-                    (selectedItem) => selectedItem.id == item.id
-                  )}
+                  isSelected={selectedCartItems.some(items => items.id === item.id)}
                   handleSelected={() => handleSelected(item)}
                   handleItemDelete={() => handleItemDelete(item)}
                 />

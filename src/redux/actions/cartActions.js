@@ -8,6 +8,8 @@ export const DESELECT_CART_ITEMS = 'DESELECT_CART_ITEMS'
 export const DESELECT_ALL_CART_ITEMS = 'DESELECT_ALL_CART_ITEMS'
 export const CLEAR_SELECTED_CART_ITEMS = 'CLEAR_SELECTED_CART_ITEMS'
 
+export const MOVE_TO_WISHLIST = 'MOVE_TO_WISHLIST'
+
 // cartActions
 export const AddToCart = (item) => ({
   type: ADD_TO_CART,
@@ -47,4 +49,9 @@ export const DeSelectCartItems = (itemId) => ({
 
 export const ClearSelectedCartItems = () => ({
   type: CLEAR_SELECTED_CART_ITEMS,
+})
+
+export const MoveToWishlist = (itemIds) => ({
+  type: MOVE_TO_WISHLIST,
+  payload: itemIds
 })

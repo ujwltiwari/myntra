@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SingleItem from './SingleItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteFromWishlist } from '@/redux/actions/wishlistActions';
@@ -7,6 +7,11 @@ import { toast, Toaster } from 'react-hot-toast';
 const Wishlist = () => {
   const dispatch = useDispatch();
   const { wishlist } = useSelector((state) => state.wishlist);
+  const [wishListItems, setWishListItems] = useState(wishlist || [])
+
+  useEffect(() => {
+    setWishListItems(wishlist)
+  }, [wishlist]);
 
   const toastify = (message, type) => {
     console.log('toastify called');
@@ -21,7 +26,7 @@ const Wishlist = () => {
   };
 
   const handleItemDelete = (item) => {
-    console.log('handleItemDelete called');
+    console.log('handleItemDelete called', item.id);
     dispatch(DeleteFromWishlist(item.id));
     toastify(`${item.name.slice(0, 15 || 5)}... Deleted from Cart`, 'error');
   };
@@ -31,10 +36,10 @@ const Wishlist = () => {
       <Toaster />
       <div className='text-[16px]'>
         <span className='font-semibold mr-2'>My Wishlist</span>
-        <span>{wishlist.length} items</span>
+        <span>{wishListItems.length} items</span>
       </div>
       <div className='flex gap-12 mt-12 pl-2'>
-        {wishlist.map((item, idx) => (
+        {wishListItems.map((item, idx) => (
           <SingleItem
             product={item}
             key={idx}

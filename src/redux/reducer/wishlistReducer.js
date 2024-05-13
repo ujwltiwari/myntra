@@ -39,6 +39,7 @@ const wishlistReducer = (state = initialState, action) => {
       const newWishlist = state.wishlist.filter(
         (item) => item.id !== itemToDelete
       );
+      console.log("newWishlist", newWishlist)
       return {
         ...state,
         wishlist: [...newWishlist],
